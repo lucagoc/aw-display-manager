@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">디스플레이 매니저</string>
+    <string name="display_manager">디스플레이 매니저</string>
+    <string name="resolution">해상도</string>
+    <string name="density">밀도</string>
+    <string name="overscan">오버스캔</string>
+    <string name="adjust_screen_margins">화면 여백 조정</string>
+    <string name="keep_this_resolution">이 해상도를 유지하시겠습니까?</string>
+    <string name="reverting_in_seconds">%1$d초 후 되돌리기&#8230;</string>
+    <string name="confirm">확인</string>
+    <string name="cancel">취소</string>
+    <string name="select_resolution">해상도 선택</string>
+    <string name="go_back">뒤로가기</string>
+    <string name="screen_adjustment">화면 조정</string>
+    <string name="margin_percent">여백: %1$d%%</string>
+    <string name="use_dpad_to_adjust">방향패드의 위/아래를 사용하여 실시간으로 조정하세요</string>
+    <string name="adjust">조정</string>
+    <string name="save">저장</string>
+    <string name="reset">초기화</string>
+    <string name="select_density">밀도(DPI) 선택</string>
+    <string name="root_access_denied">Root 권한 거부됨</string>
+    <string name="root_required_desc">이 애플리케이션은 Allwinner SoC의 하드웨어 디스플레이 설정을 수정하기 위해 Root 권한(Magisk/SU)이 필요합니다.</string>
+    <string name="dpi_format">%1$d dpi</string>
+    <string name="about">정보</string>
+    <string name="about_app_desc">Allwinner SoC용 디스플레이 매니저.</string>
+    <string name="version">버전</string>
+    <string name="maintainer">Maintainer</string>
+    <string name="github">GitHub</string>
+</resources>

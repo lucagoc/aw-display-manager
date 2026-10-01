@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">ディスプレイマネージャー</string>
+    <string name="display_manager">ディスプレイマネージャー</string>
+    <string name="resolution">解像度</string>
+    <string name="density">密度</string>
+    <string name="overscan">オーバースキャン</string>
+    <string name="adjust_screen_margins">画面の余白を調整</string>
+    <string name="keep_this_resolution">この解像度を保持しますか？</string>
+    <string name="reverting_in_seconds">%1$d秒後に元に戻します&#8230;</string>
+    <string name="confirm">確認</string>
+    <string name="cancel">キャンセル</string>
+    <string name="select_resolution">解像度を選択</string>
+    <string name="go_back">戻る</string>
+    <string name="screen_adjustment">画面調整</string>
+    <string name="margin_percent">余白: %1$d%%</string>
+    <string name="use_dpad_to_adjust">Dパッドの上下を使用してリアルタイムで調整します</string>
+    <string name="adjust">調整</string>
+    <string name="save">保存</string>
+    <string name="reset">リセット</string>
+    <string name="select_density">密度 (DPI) を選択</string>
+    <string name="root_access_denied">Rootアクセスが拒否されました</string>
+    <string name="root_required_desc">このアプリはAllwinner SoCのハードウェアディスプレイ設定を変更するため、Root権限（Magisk/SU）が必要です。</string>
+    <string name="dpi_format">%1$d dpi</string>
+    <string name="about">概要</string>
+    <string name="about_app_desc">Allwinner SoC 用ディスプレイマネージャー。</string>
+    <string name="version">バージョン</string>
+    <string name="maintainer">メンテナー</string>
+    <string name="github">GitHub</string>
+</resources>

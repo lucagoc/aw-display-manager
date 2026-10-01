@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Administrador de Pantalla</string>
+    <string name="display_manager">Administrador de Pantalla</string>
+    <string name="resolution">Resolución</string>
+    <string name="density">Densidad</string>
+    <string name="overscan">Overscan</string>
+    <string name="adjust_screen_margins">Ajustar márgenes de pantalla</string>
+
+    <string name="keep_this_resolution">¿Mantener esta resolución?</string>
+    <string name="reverting_in_seconds">Revirtiendo en %1$d segundos&#8230;</string>
+    <string name="confirm">Confirmar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="select_resolution">Seleccionar Resolución</string>
+    <string name="go_back">Volver</string>
+
+    <string name="screen_adjustment">Ajuste de Pantalla</string>
+    <string name="margin_percent">Margen: %1$d%%</string>
+    <string name="use_dpad_to_adjust">Use ARRIBA / ABAJO en el D-Pad para ajustar en tiempo real</string>
+    <string name="adjust">Ajustar</string>
+    <string name="save">Guardar</string>
+    <string name="reset">Restablecer</string>
+
+    <string name="select_density">Seleccionar Densidad (DPI)</string>
+
+    <string name="root_access_denied">Acceso Root Denegado</string>
+    <string name="root_required_desc">Esta aplicación requiere privilegios root (Magisk/SU) para modificar la configuración de pantalla de hardware en el SoC Allwinner.</string>
+
+    <string name="dpi_format">%1$d dpi</string>
+    <string name="about">Acerca de</string>
+    <string name="about_app_desc">Administrador de pantalla para SoCs Allwinner.</string>
+    <string name="version">Versión</string>
+    <string name="maintainer">Mantenenedor</string>
+    <string name="github">GitHub</string>
+</resources>

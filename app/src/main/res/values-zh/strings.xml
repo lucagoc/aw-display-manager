@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">显示管理器</string>
+    <string name="display_manager">显示管理器</string>
+    <string name="resolution">分辨率</string>
+    <string name="density">密度</string>
+    <string name="overscan">过扫描</string>
+    <string name="adjust_screen_margins">调整屏幕边缘</string>
+    <string name="keep_this_resolution">保持此分辨率吗？</string>
+    <string name="reverting_in_seconds">%1$d秒后还原&#8230;</string>
+    <string name="confirm">确认</string>
+    <string name="cancel">取消</string>
+    <string name="select_resolution">选择分辨率</string>
+    <string name="go_back">返回</string>
+    <string name="screen_adjustment">屏幕调整</string>
+    <string name="margin_percent">边距: %1$d%%</string>
+    <string name="use_dpad_to_adjust">使用方向键上下进行实时调整</string>
+    <string name="adjust">调整</string>
+    <string name="save">保存</string>
+    <string name="reset">重置</string>
+    <string name="select_density">选择密度 (DPI)</string>
+    <string name="root_access_denied">Root权限被拒绝</string>
+    <string name="root_required_desc">此应用需要Root权限（Magisk/SU）才能修改Allwinner SoC上的硬件显示设置。</string>
+    <string name="dpi_format">%1$d dpi</string>
+    <string name="about">关于</string>
+    <string name="about_app_desc">Allwinner SoC 显示管理器。</string>
+    <string name="version">版本</string>
+    <string name="maintainer">开发者</string>
+    <string name="github">GitHub</string>
+</resources>

@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Display Manager</string>
+    <string name="display_manager">Display Manager</string>
+    <string name="resolution">Resolution</string>
+    <string name="density">Density</string>
+    <string name="overscan">Overscan</string>
+    <string name="adjust_screen_margins">Adjust screen margins</string>
+
+    <string name="keep_this_resolution">Keep this resolution?</string>
+    <string name="reverting_in_seconds">Reverting in %1$d seconds&#8230;</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="select_resolution">Select Resolution</string>
+    <string name="go_back">Go Back</string>
+
+    <string name="screen_adjustment">Screen Adjustment</string>
+    <string name="margin_percent">Margin: %1$d%%</string>
+    <string name="use_dpad_to_adjust">Use UP / DOWN on D-Pad to adjust in real-time</string>
+    <string name="adjust">Adjust</string>
+    <string name="save">Save</string>
+    <string name="reset">Reset</string>
+
+    <string name="select_density">Select Density (DPI)</string>
+
+    <string name="root_access_denied">Root Access Denied</string>
+    <string name="root_required_desc">This application requires root privileges (Magisk/SU) to modify hardware display settings on the Allwinner SoC.</string>
+
+    <string name="dpi_format">%1$d dpi</string>
+    <string name="about">About</string>
+    <string name="about_app_desc">Display Manager for Allwinner SoCs.</string>
+    <string name="version">Version</string>
+    <string name="maintainer">Maintainer</string>
+    <string name="github">GitHub</string>
+</resources>

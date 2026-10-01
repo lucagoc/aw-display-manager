@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Gerenciador de Tela</string>
+    <string name="display_manager">Gerenciador de Tela</string>
+    <string name="resolution">Resolução</string>
+    <string name="density">Densidade</string>
+    <string name="overscan">Overscan</string>
+    <string name="adjust_screen_margins">Ajustar margens da tela</string>
+    <string name="keep_this_resolution">Manter esta resolução?</string>
+    <string name="reverting_in_seconds">Revertendo em %1$d segundos&#8230;</string>
+    <string name="confirm">Confirmar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="select_resolution">Selecionar Resolução</string>
+    <string name="go_back">Voltar</string>
+    <string name="screen_adjustment">Ajuste de Tela</string>
+    <string name="margin_percent">Margem: %1$d%%</string>
+    <string name="use_dpad_to_adjust">Use CIMA / BAIXO no D-Pad para ajustar em tempo real</string>
+    <string name="adjust">Ajustar</string>
+    <string name="save">Salvar</string>
+    <string name="reset">Redefinir</string>
+    <string name="select_density">Selecionar Densidade (DPI)</string>
+    <string name="root_access_denied">Acesso Root Negado</string>
+    <string name="root_required_desc">Este aplicativo requer privilégios de root (Magisk/SU) para modificar as configurações de tela do hardware no SoC Allwinner.</string>
+    <string name="dpi_format">%1$d dpi</string>
+    <string name="about">Sobre</string>
+    <string name="about_app_desc">Gerenciador de tela para SoCs Allwinner.</string>
+    <string name="version">Versão</string>
+    <string name="maintainer">Mantenedor</string>
+    <string name="github">GitHub</string>
+</resources>

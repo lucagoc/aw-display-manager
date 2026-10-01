@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">डिस्प्ले मैनेजर</string>
+    <string name="display_manager">डिस्प्ले मैनेजर</string>
+    <string name="resolution">रिज़ॉल्यूशन</string>
+    <string name="density">घनत्व (Density)</string>
+    <string name="overscan">ओवरस्कैन</string>
+    <string name="adjust_screen_margins">स्क्रीन मार्जिन समायोजित करें</string>
+    <string name="keep_this_resolution">क्या यह रिज़ॉल्यूशन रखें?</string>
+    <string name="reverting_in_seconds">%1$d सेकंड में वापस आ रहा है&#8230;</string>
+    <string name="confirm">पुष्टि करें</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="select_resolution">रिज़ॉल्यूशन चुनें</string>
+    <string name="go_back">वापस जाएं</string>
+    <string name="screen_adjustment">स्क्रीन समायोजन</string>
+    <string name="margin_percent">मार्जिन: %1$d%%</string>
+    <string name="use_dpad_to_adjust">वास्तविक समय में समायोजित करने के लिए D-Pad पर UP / DOWN का उपयोग करें</string>
+    <string name="adjust">समायोजित करें</string>
+    <string name="save">सहेजें</string>
+    <string name="reset">रीसेट करें</string>
+    <string name="select_density">घनत्व चुनें (DPI)</string>
+    <string name="root_access_denied">रूट एक्सेस अस्वीकृत</string>
+    <string name="root_required_desc">इस एप्लिकेशन को Allwinner SoC पर हार्डवेयर डिस्प्ले सेटिंग्स को संशोधित करने के लिए रूट विशेषाधिकार (Magisk/SU) की आवश्यकता है।</string>
+    <string name="dpi_format">%1$d dpi</string>
+    <string name="about">के बारे में</string>
+    <string name="about_app_desc">Allwinner SoC के लिए डिस्प्ले मैनेजर।</string>
+    <string name="version">संस्करण</string>
+    <string name="maintainer">Maintainer</string>
+    <string name="github">GitHub</string>
+</resources>

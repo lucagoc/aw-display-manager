@@ -1,0 +1,132 @@
+package com.lucagoc.awdisplaymanager
+
+data class DisplayMode(val id: Int, val name: String) {
+    val displayName: String
+        get() = formatResolutionName(name)
+}
+
+private val pRegex = Regex("""P(?=\s|$)""")
+private val iRegex = Regex("""I(?=\s|$)""")
+
+fun formatResolutionName(rawName: String): String {
+    if ((rawName == "Unknown") || rawName.startsWith("Mode ID:")) return rawName
+    
+    // Example: DISP_TV_MOD_1080P_60HZ -> 1080p 60Hz
+    // Example: DISP_TV_MOD_3840_2160P_60HZ -> 4K 60Hz
+    return rawName
+        .replace("DISP_TV_MOD_3840_2160P", "4K")
+        .replace("DISP_TV_MOD_", "")
+        .replace("_", " ")
+        .replace(pRegex, "p")
+        .replace(iRegex, "i")
+        .replace("HZ", "Hz")
+        .trim()
+}
+
+object DisplayManager {
+    private val modeRegex = Regex("""\[(\d+)]\s+([a-zA-Z0-9_]+)""")
+    private val idRegex = Regex("""\d+""")
+    private val currentModeRegex = Regex("""type=4\s+mode=(\d+)""")
+    private val overrideDensityRegex = Regex("""Override density:\s*(\d+)""")
+    private val physDensityRegex = Regex("""Physical density:\s*(\d+)""")
+    private val marginRegex = Regex("""Margin:\s*left=(\d+)\s*right=(\d+)\s*top=(\d+)\s*bottom=(\d+)""")
+
+    fun getSupportedResolutions(): List<DisplayMode> {
+        val (stdout, _) = RootUtils.execute("dispconfig -p")
+        // Expected format could be something like "  - [10] DISP_TV_MOD_1080P_60HZ"
+        val modes = mutableListOf<DisplayMode>()
+        stdout.lines().forEach { line ->
+            val match = modeRegex.find(line)
+            if (match != null) {
+                modes.add(DisplayMode(match.groupValues[1].toInt(), match.groupValues[2]))
+            } else if (line.contains("1080P") || line.contains("720P") || line.contains("4K")) {
+                // simple fallback parse if it just spits out strings and ids somewhere
+                idRegex.find(line)?.let { idMatch ->
+                    modes.add(DisplayMode(idMatch.value.toInt(), line.trim()))
+                }
+            }
+        }
+        
+        // Hardcoded fallbacks if nothing parses
+        if (modes.isEmpty()) {
+            modes.add(DisplayMode(10, "DISP_TV_MOD_1080P_60HZ"))
+            modes.add(DisplayMode(4, "DISP_TV_MOD_720P_60HZ"))
+            modes.add(DisplayMode(38, "DISP_TV_MOD_3840_2160P_30HZ"))
+            modes.add(DisplayMode(39, "DISP_TV_MOD_3840_2160P_60HZ"))
+        }
+        return modes
+    }
+
+    fun getCurrentResolution(): String {
+        val (stdout, _) = RootUtils.execute("dispconfig -d")
+        val match = currentModeRegex.find(stdout)
+        if (match != null) {
+            val modeId = match.groupValues[1].toIntOrNull()
+            if (modeId != null) {
+                // Try to find the name from supported resolutions
+                val modes = getSupportedResolutions()
+                return modes.find { it.id == modeId }?.name ?: "Mode ID: $modeId"
+            }
+        }
+        return "Unknown"
+    }
+
+    fun setResolution(modeId: Int, resolutionName: String) {
+        // Set mode
+        RootUtils.execute("dispconfig -s $modeId")
+        
+        // Adjust wm size based on common names
+        when {
+            resolutionName.contains("3840") || resolutionName.contains("4K") -> {
+                RootUtils.execute("wm size 3840x2160")
+            }
+            resolutionName.contains("1080") -> {
+                RootUtils.execute("wm size 1920x1080")
+            }
+            resolutionName.contains("720") -> {
+                RootUtils.execute("wm size 1280x720")
+            }
+        }
+    }
+
+    fun getDensity(): Int {
+        val (stdout, _) = RootUtils.execute("wm density")
+        overrideDensityRegex.find(stdout)?.groupValues?.getOrNull(1)?.toIntOrNull()?.let { return it }
+        physDensityRegex.find(stdout)?.groupValues?.getOrNull(1)?.toIntOrNull()?.let { return it }
+        return 320
+    }
+
+    fun setDensity(density: Int) {
+        RootUtils.execute("wm density $density")
+    }
+
+    fun getOverscan(): List<Int> {
+        val (stdout, _) = RootUtils.execute("getprop persist.disp.margin.hdmi")
+        val fallback = listOf(100, 100, 100, 100)
+        if (stdout.isNotBlank()) {
+            val parts = stdout.split(",")
+            if (parts.size == 4) {
+                return parts.mapNotNull { it.trim().toIntOrNull() }.ifEmpty { fallback }
+            }
+        }
+        
+        // Try parsing from dispconfig -d if prop is empty
+        val (dispStdout, _) = RootUtils.execute("dispconfig -d")
+        val match = marginRegex.find(dispStdout)
+        if (match != null) {
+            val left = match.groupValues[1].toIntOrNull() ?: 100
+            val right = match.groupValues[2].toIntOrNull() ?: 100
+            val top = match.groupValues[3].toIntOrNull() ?: 100
+            val bottom = match.groupValues[4].toIntOrNull() ?: 100
+            return listOf(left, top, right, bottom)
+        }
+
+        return fallback
+    }
+
+    fun setOverscan(margin: Int) {
+        val marginStr = "$margin,$margin,$margin,$margin"
+        RootUtils.execute("setprop persist.disp.margin.hdmi \"$marginStr\"")
+        RootUtils.execute("dispconfig -m $margin")
+    }
+}

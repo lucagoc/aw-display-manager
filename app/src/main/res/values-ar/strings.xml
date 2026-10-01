@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">مدير الشاشة</string>
+    <string name="display_manager">مدير الشاشة</string>
+    <string name="resolution">الدقة</string>
+    <string name="density">الكثافة</string>
+    <string name="overscan">مسح زائد (Overscan)</string>
+    <string name="adjust_screen_margins">ضبط هوامش الشاشة</string>
+    <string name="keep_this_resolution">هل تريد الاحتفاظ بهذه الدقة؟</string>
+    <string name="reverting_in_seconds">سيتم التراجع خلال %1$d ثوانٍ&#8230;</string>
+    <string name="confirm">تأكيد</string>
+    <string name="cancel">إلغاء</string>
+    <string name="select_resolution">حدد الدقة</string>
+    <string name="go_back">رجوع</string>
+    <string name="screen_adjustment">ضبط الشاشة</string>
+    <string name="margin_percent">الهامش: %1$d%%</string>
+    <string name="use_dpad_to_adjust">استخدم أعلى / أسفل على D-Pad للضبط في الوقت الفعلي</string>
+    <string name="adjust">ضبط</string>
+    <string name="save">حفظ</string>
+    <string name="reset">إعادة تعيين</string>
+    <string name="select_density">حدد الكثافة (DPI)</string>
+    <string name="root_access_denied">تم رفض وصول الروت (Root)</string>
+    <string name="root_required_desc">يتطلب هذا التطبيق صلاحيات الروت (Magisk/SU) لتعديل إعدادات عرض الأجهزة على Allwinner SoC.</string>
+    <string name="dpi_format">%1$d dpi</string>
+    <string name="about">حول</string>
+    <string name="about_app_desc">مدير الشاشة لـ Allwinner SoCs.</string>
+    <string name="version">إصدار</string>
+    <string name="maintainer">Maintainer</string>
+    <string name="github">GitHub</string>
+</resources>

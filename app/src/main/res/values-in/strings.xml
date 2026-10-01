@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Pengelola Layar</string>
+    <string name="display_manager">Pengelola Layar</string>
+    <string name="resolution">Resolusi</string>
+    <string name="density">Kepadatan (Density)</string>
+    <string name="overscan">Overscan</string>
+    <string name="adjust_screen_margins">Sesuaikan margin layar</string>
+    <string name="keep_this_resolution">Simpan resolusi ini?</string>
+    <string name="reverting_in_seconds">Mengembalikan dalam %1$d detik&#8230;</string>
+    <string name="confirm">Konfirmasi</string>
+    <string name="cancel">Batal</string>
+    <string name="select_resolution">Pilih Resolusi</string>
+    <string name="go_back">Kembali</string>
+    <string name="screen_adjustment">Penyesuaian Layar</string>
+    <string name="margin_percent">Margin: %1$d%%</string>
+    <string name="use_dpad_to_adjust">Gunakan ATAS / BAWAH pada D-Pad untuk menyesuaikan secara real-time</string>
+    <string name="adjust">Sesuaikan</string>
+    <string name="save">Simpan</string>
+    <string name="reset">Atur Ulang</string>
+    <string name="select_density">Pilih Kepadatan (DPI)</string>
+    <string name="root_access_denied">Akses Root Ditolak</string>
+    <string name="root_required_desc">Aplikasi ini membutuhkan hak akses root (Magisk/SU) untuk memodifikasi pengaturan layar perangkat keras pada Allwinner SoC.</string>
+    <string name="dpi_format">%1$d dpi</string>
+    <string name="about">Tentang</string>
+    <string name="about_app_desc">Pengelola layar untuk Allwinner SoCs.</string>
+    <string name="version">Versi</string>
+    <string name="maintainer">Maintainer</string>
+    <string name="github">GitHub</string>
+</resources>
