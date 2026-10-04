@@ -11,6 +11,9 @@ on:
         required: false
         default: 'v1.0.0'
 
+permissions:
+  contents: write
+
 jobs:
   build-and-release:
     name: Build Signed Release APK
