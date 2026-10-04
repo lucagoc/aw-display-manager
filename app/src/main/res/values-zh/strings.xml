@@ -26,4 +26,25 @@
     <string name="version">版本</string>
     <string name="maintainer">开发者</string>
     <string name="github">GitHub</string>
+    <string name="advanced_options">高级选项</string>
+    <string name="advanced_options_desc">配置界面分辨率和DPI</string>
+    <string name="advanced_subtitle">界面: %1$s • %2$d dpi</string>
+    <string name="render_resolution">界面分辨率</string>
+    <string name="select_render_resolution">选择界面分辨率</string>
+    <string name="render_resolution_desc">界面和应用程序渲染分辨率</string>
+    <string name="auto">自动</string>
+    <string name="auto_render_subtitle">当前: %1$s</string>
+    <string name="auto_density_subtitle">根据界面分辨率计算 (%1$d dpi)</string>
+    <string name="recommended">推荐</string>
+    <string name="hd_720p">720p 高清 (1280x720)</string>
+    <string name="fhd_1080p">1080p 全高清 (1920x1080)</string>
+    <string name="uhd_4k">4K 超高清 (3840x2160)</string>
+    <string name="check_for_updates">检查更新</string>
+    <string name="checking_updates">正在检查更新&#8230;</string>
+    <string name="app_up_to_date">已是最新版本</string>
+    <string name="update_available">有可用更新: %1$s</string>
+    <string name="download_and_install">下载并安装</string>
+    <string name="downloading_update">正在下载更新&#8230; %1$d%%</string>
+    <string name="installing_update">正在安装更新&#8230;</string>
+    <string name="update_failed">更新失败: %1$s</string>
 </resources>

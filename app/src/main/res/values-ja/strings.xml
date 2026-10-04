@@ -26,4 +26,25 @@
     <string name="version">バージョン</string>
     <string name="maintainer">メンテナー</string>
     <string name="github">GitHub</string>
+    <string name="advanced_options">高度な設定</string>
+    <string name="advanced_options_desc">インターフェース解像度とDPIを設定</string>
+    <string name="advanced_subtitle">UI: %1$s • %2$d dpi</string>
+    <string name="render_resolution">インターフェース解像度</string>
+    <string name="select_render_resolution">インターフェース解像度を選択</string>
+    <string name="render_resolution_desc">UIおよびアプリの描画解像度</string>
+    <string name="auto">自動</string>
+    <string name="auto_render_subtitle">現在: %1$s</string>
+    <string name="auto_density_subtitle">インターフェース解像度から計算 (%1$d dpi)</string>
+    <string name="recommended">推奨</string>
+    <string name="hd_720p">720p HD (1280x720)</string>
+    <string name="fhd_1080p">1080p Full HD (1920x1080)</string>
+    <string name="uhd_4k">4K Ultra HD (3840x2160)</string>
+    <string name="check_for_updates">アップデートを確認</string>
+    <string name="checking_updates">アップデートを確認中&#8230;</string>
+    <string name="app_up_to_date">アプリは最新です</string>
+    <string name="update_available">アップデート利用可能: %1$s</string>
+    <string name="download_and_install">ダウンロードしてインストール</string>
+    <string name="downloading_update">アップデートをダウンロード中&#8230; %1$d%%</string>
+    <string name="installing_update">アップデートをインストール中&#8230;</string>
+    <string name="update_failed">アップデート失敗: %1$s</string>
 </resources>

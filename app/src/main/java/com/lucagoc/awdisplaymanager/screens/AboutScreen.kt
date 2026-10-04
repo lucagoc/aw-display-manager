@@ -7,6 +7,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,12 +21,35 @@ import androidx.compose.ui.unit.sp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Icon
 import androidx.tv.material3.Text
+import com.lucagoc.awdisplaymanager.MainViewModel
 import com.lucagoc.awdisplaymanager.R
+import com.lucagoc.awdisplaymanager.UpdateState
 import com.lucagoc.awdisplaymanager.screens.components.SettingsItem
+import com.lucagoc.awdisplaymanager.ui.icons.UpdateIcon
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
-fun AboutScreen(onNavigateBack: () -> Unit) {
+fun AboutScreen(
+    viewModel: MainViewModel,
+    onNavigateBack: () -> Unit
+) {
+    val updateState by viewModel.updateState.collectAsState()
+
+    val updateTitle = when (updateState) {
+        is UpdateState.UpdateAvailable -> stringResource(R.string.download_and_install)
+        else -> stringResource(R.string.check_for_updates)
+    }
+
+    val updateSubtitle = when (val state = updateState) {
+        is UpdateState.Idle -> stringResource(R.string.check_for_updates)
+        is UpdateState.Checking -> stringResource(R.string.checking_updates)
+        is UpdateState.UpToDate -> stringResource(R.string.app_up_to_date)
+        is UpdateState.UpdateAvailable -> stringResource(R.string.update_available, state.latestVersion)
+        is UpdateState.Downloading -> stringResource(R.string.downloading_update, state.progress)
+        is UpdateState.Installing -> stringResource(R.string.installing_update)
+        is UpdateState.Error -> stringResource(R.string.update_failed, state.message)
+    }
+
     Row(modifier = Modifier.fillMaxSize().background(Color(0xFF0F0F0F))) {
         // Left pane: Options
         Column(
@@ -59,9 +84,23 @@ fun AboutScreen(onNavigateBack: () -> Unit) {
                 item {
                     SettingsItem(
                         title = stringResource(R.string.version),
-                        subtitle = "1.0",
+                        subtitle = viewModel.appVersionName,
                         icon = Icons.Default.Info,
                         onClick = {},
+                    )
+                }
+                item {
+                    SettingsItem(
+                        title = updateTitle,
+                        subtitle = updateSubtitle,
+                        icon = UpdateIcon,
+                        onClick = {
+                            if (updateState is UpdateState.UpdateAvailable) {
+                                viewModel.startUpdate()
+                            } else if (updateState !is UpdateState.Downloading && updateState !is UpdateState.Installing && updateState !is UpdateState.Checking) {
+                                viewModel.checkForUpdates()
+                            }
+                        },
                     )
                 }
                 item {

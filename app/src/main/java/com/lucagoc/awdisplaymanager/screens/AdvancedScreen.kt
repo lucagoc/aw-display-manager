@@ -3,44 +3,49 @@ package com.lucagoc.awdisplaymanager.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.runtime.*
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.tv.material3.*
 import com.lucagoc.awdisplaymanager.MainViewModel
 import com.lucagoc.awdisplaymanager.R
-import com.lucagoc.awdisplaymanager.UpdateState
 import com.lucagoc.awdisplaymanager.screens.components.SettingsItem
 import com.lucagoc.awdisplaymanager.ui.icons.*
 
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
-fun HomeScreen(
+fun AdvancedScreen(
     viewModel: MainViewModel,
-    onNavigateToResolution: () -> Unit,
-    onNavigateToAdvanced: () -> Unit,
-    onNavigateToOverscan: () -> Unit,
-    onNavigateToAbout: () -> Unit,
+    onNavigateToRenderResolution: () -> Unit,
+    onNavigateToDensity: () -> Unit,
+    onNavigateBack: () -> Unit,
 ) {
-    val currentResolution by viewModel.formattedCurrentResolution.collectAsState()
     val currentRenderResolution by viewModel.currentRenderResolution.collectAsState()
+    val isAutoRender by viewModel.isAutoRenderResolution.collectAsState()
     val currentDensity by viewModel.currentDensity.collectAsState()
-    val updateState by viewModel.updateState.collectAsState()
+    val isAutoDensity by viewModel.isAutoDensity.collectAsState()
 
-    val aboutSubtitle = when (val state = updateState) {
-        is UpdateState.UpdateAvailable -> stringResource(R.string.update_available, state.latestVersion)
-        else -> null
+    val renderSubtitle = if (isAutoRender) {
+        "${stringResource(R.string.auto)} ($currentRenderResolution)"
+    } else {
+        currentRenderResolution
+    }
+
+    val densitySubtitle = if (isAutoDensity) {
+        "${stringResource(R.string.auto)} (${stringResource(R.string.dpi_format, currentDensity)})"
+    } else {
+        stringResource(R.string.dpi_format, currentDensity)
     }
 
     Row(modifier = Modifier.fillMaxSize().background(Color(0xFF0F0F0F))) {
-        // Left pane: Options
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -56,42 +61,32 @@ fun HomeScreen(
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
-                    text = stringResource(R.string.display_manager),
+                    text = stringResource(R.string.advanced_options),
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
                 )
             }
-            Spacer(modifier = Modifier.height(48.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
             SettingsItem(
-                title = stringResource(R.string.resolution),
-                subtitle = currentResolution,
+                title = stringResource(R.string.render_resolution),
+                subtitle = renderSubtitle,
                 icon = SettingsScreen,
-                onClick = onNavigateToResolution,
+                onClick = onNavigateToRenderResolution,
             )
             Spacer(modifier = Modifier.height(12.dp))
             SettingsItem(
-                title = stringResource(R.string.advanced_options),
-                subtitle = stringResource(R.string.advanced_subtitle, currentRenderResolution, currentDensity),
-                icon = DisplaySettings,
-                onClick = onNavigateToAdvanced,
+                title = stringResource(R.string.density),
+                subtitle = densitySubtitle,
+                icon = HighDensity,
+                onClick = onNavigateToDensity,
             )
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(16.dp))
             SettingsItem(
-                title = stringResource(R.string.overscan),
-                subtitle = stringResource(R.string.adjust_screen_margins),
-                icon = Resize,
-                onClick = onNavigateToOverscan,
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            SettingsItem(
-                title = stringResource(R.string.about),
-                subtitle = aboutSubtitle,
-                icon = Icons.Default.Info,
-                onClick = onNavigateToAbout,
+                title = stringResource(R.string.go_back),
+                icon = Icons.Default.Close,
+                onClick = onNavigateBack,
             )
         }
         // Right pane: Decorative

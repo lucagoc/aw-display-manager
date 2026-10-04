@@ -15,22 +15,33 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.tv.material3.*
+import com.lucagoc.awdisplaymanager.DisplayManager
 import com.lucagoc.awdisplaymanager.MainViewModel
 import com.lucagoc.awdisplaymanager.R
 import com.lucagoc.awdisplaymanager.screens.components.SettingsItem
 import com.lucagoc.awdisplaymanager.ui.icons.*
 
+data class RenderOption(val size: String, val titleRes: Int)
+
 @OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
-fun DensityScreen(
+fun RenderResolutionScreen(
     viewModel: MainViewModel,
     onNavigateBack: () -> Unit,
 ) {
-    val currentDensity by viewModel.currentDensity.collectAsState()
-    val isAutoDensity by viewModel.isAutoDensity.collectAsState()
-    val recommendedDensity by viewModel.recommendedDensity.collectAsState()
+    val currentRenderResolution by viewModel.currentRenderResolution.collectAsState()
+    val isAutoRender by viewModel.isAutoRenderResolution.collectAsState()
+    val currentOutputResolution by viewModel.currentResolution.collectAsState()
 
-    val densities = listOf(160, 213, 240, 280, 320, 360, 400, 480, 640)
+    val recommendedAutoRender = remember(currentOutputResolution) {
+        DisplayManager.computeAutoRenderResolution(currentOutputResolution)
+    }
+
+    val options = listOf(
+        RenderOption("1280x720", R.string.hd_720p),
+        RenderOption("1920x1080", R.string.fhd_1080p),
+        RenderOption("3840x2160", R.string.uhd_4k),
+    )
 
     Row(modifier = Modifier.fillMaxSize().background(Color(0xFF0F0F0F))) {
         Column(
@@ -41,14 +52,14 @@ fun DensityScreen(
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
-                    imageVector = HighDensity,
+                    imageVector = SettingsScreen,
                     contentDescription = null,
                     modifier = Modifier.size(36.dp),
                     tint = Color.White,
                 )
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(
-                    text = stringResource(R.string.select_density),
+                    text = stringResource(R.string.select_render_resolution),
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,
@@ -64,24 +75,24 @@ fun DensityScreen(
                 item {
                     SettingsItem(
                         title = stringResource(R.string.auto),
-                        subtitle = stringResource(R.string.auto_density_subtitle, recommendedDensity),
-                        icon = HighDensity,
-                        onClick = { viewModel.setDensityAuto() },
-                        isCurrent = isAutoDensity,
+                        subtitle = stringResource(R.string.auto_render_subtitle, currentRenderResolution),
+                        icon = SettingsScreen,
+                        onClick = { viewModel.setRenderResolutionAuto() },
+                        isCurrent = isAutoRender,
                     )
                 }
 
                 // 2. Manual options
-                items(densities) { dpi ->
-                    val isCurrent = !isAutoDensity && currentDensity == dpi
-                    val isRecommended = dpi == recommendedDensity
+                items(options) { opt ->
+                    val isCurrent = !isAutoRender && currentRenderResolution == opt.size
+                    val isRecommended = recommendedAutoRender == opt.size
                     val subtitle = if (isRecommended) stringResource(R.string.recommended) else null
 
                     SettingsItem(
-                        title = stringResource(R.string.dpi_format, dpi),
+                        title = stringResource(opt.titleRes),
                         subtitle = subtitle,
-                        icon = null,
-                        onClick = { viewModel.setDensityManual(dpi) },
+                        icon = getIconForResolution(opt.size),
+                        onClick = { viewModel.setRenderResolutionManual(opt.size) },
                         isCurrent = isCurrent,
                     )
                 }
@@ -97,6 +108,8 @@ fun DensityScreen(
                 }
             }
         }
+
+        // Right pane: Decorative
         Box(
             modifier = Modifier
                 .weight(1f)
@@ -105,7 +118,7 @@ fun DensityScreen(
             contentAlignment = Alignment.Center,
         ) {
             Icon(
-                imageVector = HighDensity,
+                imageVector = SettingsScreen,
                 contentDescription = null,
                 modifier = Modifier.size(160.dp),
                 tint = Color(0xFF333333),

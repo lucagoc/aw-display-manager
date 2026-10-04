@@ -15,12 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Surface
-import com.lucagoc.awdisplaymanager.screens.AboutScreen
-import com.lucagoc.awdisplaymanager.screens.DensityScreen
-import com.lucagoc.awdisplaymanager.screens.HomeScreen
-import com.lucagoc.awdisplaymanager.screens.OverscanScreen
-import com.lucagoc.awdisplaymanager.screens.ResolutionScreen
-import com.lucagoc.awdisplaymanager.screens.RootDeniedScreen
+import com.lucagoc.awdisplaymanager.screens.*
 import com.lucagoc.awdisplaymanager.ui.theme.AllwinnerScreenSettingsTheme
 
 class MainActivity : ComponentActivity() {
@@ -56,9 +51,23 @@ fun AppNavigation() {
             HomeScreen(
                 viewModel = viewModel,
                 onNavigateToResolution = { navController.navigate("resolution") },
+                onNavigateToAdvanced = { navController.navigate("advanced") },
                 onNavigateToOverscan = { navController.navigate("overscan") },
+                onNavigateToAbout = { navController.navigate("about") },
+            )
+        }
+        composable("advanced") {
+            AdvancedScreen(
+                viewModel = viewModel,
+                onNavigateToRenderResolution = { navController.navigate("render_resolution") },
                 onNavigateToDensity = { navController.navigate("density") },
-            ) { navController.navigate("about") }
+                onNavigateBack = { navController.popBackStack() },
+            )
+        }
+        composable("render_resolution") {
+            RenderResolutionScreen(viewModel = viewModel) {
+                navController.popBackStack()
+            }
         }
         composable("density") {
             DensityScreen(viewModel = viewModel) {
@@ -76,7 +85,7 @@ fun AppNavigation() {
             }
         }
         composable("about") {
-            AboutScreen {
+            AboutScreen(viewModel = viewModel) {
                 navController.popBackStack()
             }
         }

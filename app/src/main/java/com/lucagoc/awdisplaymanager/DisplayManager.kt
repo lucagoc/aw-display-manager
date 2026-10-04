@@ -29,6 +29,8 @@ object DisplayManager {
     private val currentModeRegex = Regex("""type=4\s+mode=(\d+)""")
     private val overrideDensityRegex = Regex("""Override density:\s*(\d+)""")
     private val physDensityRegex = Regex("""Physical density:\s*(\d+)""")
+    private val overrideSizeRegex = Regex("""Override size:\s*(\d+x\d+)""")
+    private val physSizeRegex = Regex("""Physical size:\s*(\d+x\d+)""")
     private val marginRegex = Regex("""Margin:\s*left=(\d+)\s*right=(\d+)\s*top=(\d+)\s*bottom=(\d+)""")
 
     fun getSupportedResolutions(): List<DisplayMode> {
@@ -71,21 +73,49 @@ object DisplayManager {
         return "Unknown"
     }
 
-    fun setResolution(modeId: Int, resolutionName: String) {
-        // Set mode
+    fun setResolution(modeId: Int) {
+        // Set HDMI output mode
         RootUtils.execute("dispconfig -s $modeId")
-        
-        // Adjust wm size based on common names
-        when {
-            resolutionName.contains("3840") || resolutionName.contains("4K") -> {
-                RootUtils.execute("wm size 3840x2160")
-            }
-            resolutionName.contains("1080") -> {
-                RootUtils.execute("wm size 1920x1080")
-            }
-            resolutionName.contains("720") -> {
-                RootUtils.execute("wm size 1280x720")
-            }
+    }
+
+    fun saveOutputResolutionPersist(modeId: Int) {
+        val propValue = "4,$modeId,0,0,4,257"
+        RootUtils.execute("setprop persist.disp.device_config.hdmi \"$propValue\"")
+        RootUtils.execute("setprop persist.vendor.disp.mode $modeId")
+    }
+
+    fun getRenderResolution(): String {
+        val (stdout, _) = RootUtils.execute("wm size")
+        overrideSizeRegex.find(stdout)?.groupValues?.getOrNull(1)?.let { return it }
+        physSizeRegex.find(stdout)?.groupValues?.getOrNull(1)?.let { return it }
+        return "1920x1080"
+    }
+
+    fun setRenderResolution(size: String) {
+        RootUtils.execute("wm size $size")
+    }
+
+    fun computeAutoRenderResolution(outputResolutionName: String): String {
+        val upper = outputResolutionName.uppercase()
+        return when {
+            upper.contains("720") -> "1280x720"
+            // Cap at 1080p even if 4K / 3840x2160 is chosen for output to avoid performance issues
+            upper.contains("3840") || upper.contains("4K") || upper.contains("2160") -> "1920x1080"
+            upper.contains("1080") -> "1920x1080"
+            upper.contains("480") -> "720x480"
+            upper.contains("576") -> "720x576"
+            else -> "1920x1080"
+        }
+    }
+
+    fun computeRecommendedDpi(renderResolution: String): Int {
+        val parts = renderResolution.lowercase().split("x")
+        val height = parts.getOrNull(1)?.toIntOrNull() ?: 1080
+        return when {
+            height <= 480 -> 160
+            height <= 720 -> 213
+            height <= 1080 -> 320
+            else -> 640
         }
     }
 
