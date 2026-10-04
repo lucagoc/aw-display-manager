@@ -3,6 +3,13 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+val appVersionName = System.getenv("VERSION_NAME")
+    ?.removePrefix("v")
+    ?.removePrefix("V")
+    ?.trim()
+    ?.ifEmpty { null }
+    ?: "1.0"
+
 android {
     namespace = "com.lucagoc.awdisplaymanager"
     compileSdk {
@@ -14,7 +21,7 @@ android {
         minSdk = 29
         targetSdk = 37
         versionCode = 1
-        versionName = "1.0"
+        versionName = appVersionName
     }
 
     signingConfigs {

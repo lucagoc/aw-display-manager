@@ -38,21 +38,6 @@ jobs:
         run: |
           echo "$KEYSTORE_BASE64" | base64 -d > app/release.jks
 
-      - name: Build Release APK
-        env:
-          KEYSTORE_FILE: 'release.jks'
-          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: |
-          chmod +x gradlew
-          ./gradlew app:assembleRelease --stacktrace
-
-      - name: Clean Keystore
-        if: always()
-        run: |
-          rm -f app/release.jks
-
       - name: Determine Tag Name
         id: tag
         run: |
@@ -64,6 +49,22 @@ jobs:
             TAG="v1.0.0"
           fi
           echo "tag_name=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Build Release APK
+        env:
+          KEYSTORE_FILE: 'release.jks'
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          VERSION_NAME: ${{ steps.tag.outputs.tag_name }}
+        run: |
+          chmod +x gradlew
+          ./gradlew app:assembleRelease --stacktrace
+
+      - name: Clean Keystore
+        if: always()
+        run: |
+          rm -f app/release.jks
 
       - name: Prepare APK for Release
         run: |
