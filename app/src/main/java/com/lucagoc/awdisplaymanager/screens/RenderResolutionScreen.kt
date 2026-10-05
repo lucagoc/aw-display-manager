@@ -2,7 +2,8 @@ package com.lucagoc.awdisplaymanager.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -34,10 +35,30 @@ fun RenderResolutionRightPane(
         DisplayManager.computeAutoRenderResolution(currentOutputResolution)
     }
 
-    val options = listOf(
-        RenderOption("1280x720", R.string.hd_720p),
-        RenderOption("1920x1080", R.string.fhd_1080p),
-    )
+    val options = remember {
+        listOf(
+            RenderOption("1280x720", R.string.hd_720p),
+            RenderOption("1920x1080", R.string.fhd_1080p),
+        )
+    }
+
+    val listState = rememberLazyListState()
+
+    val activeOptionIndex = remember(isAutoRender, currentRenderResolution, options) {
+        if (isAutoRender) 0
+        else {
+            val idx = options.indexOfFirst { it.size == currentRenderResolution }
+            if (idx >= 0) idx + 1 else 0
+        }
+    }
+
+    LaunchedEffect(activeOptionIndex) {
+        if (activeOptionIndex >= 0) {
+            try {
+                listState.scrollToItem(activeOptionIndex)
+            } catch (_: Exception) {}
+        }
+    }
 
     Column(modifier = Modifier.fillMaxSize()) {
         Text(
@@ -51,12 +72,13 @@ fun RenderResolutionRightPane(
         Spacer(modifier = Modifier.height(18.dp))
 
         LazyColumn(
+            state = listState,
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             // 1. Automatic option
             item {
-                val autoModifier = if (isAutoRender && focusRequester != null) {
+                val autoModifier = if (activeOptionIndex == 0 && focusRequester != null) {
                     Modifier.focusRequester(focusRequester)
                 } else Modifier
 
@@ -71,12 +93,12 @@ fun RenderResolutionRightPane(
             }
 
             // 2. Manual options (720p and 1080p)
-            items(options) { opt ->
+            itemsIndexed(options) { index, opt ->
                 val isCurrent = !isAutoRender && currentRenderResolution == opt.size
                 val isRecommended = recommendedAutoRender == opt.size
                 val subtitle = if (isRecommended) stringResource(R.string.recommended) else null
 
-                val itemModifier = if (isCurrent && focusRequester != null) {
+                val itemModifier = if ((index + 1) == activeOptionIndex && focusRequester != null) {
                     Modifier.focusRequester(focusRequester)
                 } else Modifier
 

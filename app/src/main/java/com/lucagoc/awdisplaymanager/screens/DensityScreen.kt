@@ -2,7 +2,8 @@ package com.lucagoc.awdisplaymanager.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -27,7 +28,25 @@ fun DensityRightPane(
     val isAutoDensity by viewModel.isAutoDensity.collectAsState()
     val recommendedDensity by viewModel.recommendedDensity.collectAsState()
 
-    val densities = listOf(160, 213, 240, 280, 320, 360, 400, 480, 640)
+    val densities = remember { listOf(160, 213, 240, 280, 320, 360, 400, 480, 640) }
+
+    val listState = rememberLazyListState()
+
+    val activeDensityIndex = remember(isAutoDensity, currentDensity, densities) {
+        if (isAutoDensity) 0
+        else {
+            val idx = densities.indexOfFirst { it == currentDensity }
+            if (idx >= 0) idx + 1 else 0
+        }
+    }
+
+    LaunchedEffect(activeDensityIndex) {
+        if (activeDensityIndex >= 0) {
+            try {
+                listState.scrollToItem(activeDensityIndex)
+            } catch (_: Exception) {}
+        }
+    }
 
     Column(modifier = Modifier.fillMaxSize()) {
         Text(
@@ -41,12 +60,13 @@ fun DensityRightPane(
         Spacer(modifier = Modifier.height(18.dp))
 
         LazyColumn(
+            state = listState,
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
             // 1. Automatic option
             item {
-                val autoModifier = if (isAutoDensity && focusRequester != null) {
+                val autoModifier = if (activeDensityIndex == 0 && focusRequester != null) {
                     Modifier.focusRequester(focusRequester)
                 } else Modifier
 
@@ -61,12 +81,12 @@ fun DensityRightPane(
             }
 
             // 2. Manual options
-            items(densities) { dpi ->
+            itemsIndexed(densities) { index, dpi ->
                 val isCurrent = !isAutoDensity && currentDensity == dpi
                 val isRecommended = dpi == recommendedDensity
                 val subtitle = if (isRecommended) stringResource(R.string.recommended) else null
 
-                val itemModifier = if (isCurrent && focusRequester != null) {
+                val itemModifier = if ((index + 1) == activeDensityIndex && focusRequester != null) {
                     Modifier.focusRequester(focusRequester)
                 } else Modifier
 

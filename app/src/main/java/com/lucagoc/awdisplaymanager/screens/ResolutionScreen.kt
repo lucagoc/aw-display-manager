@@ -3,6 +3,7 @@ package com.lucagoc.awdisplaymanager.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
@@ -114,9 +115,22 @@ fun ResolutionRightPane(
         }
     }
 
+    val listState = rememberLazyListState()
+
     val activeIndex = remember(resolutions, currentResolution) {
-        val idx = resolutions.indexOfFirst { it.name == currentResolution }
-        if (idx >= 0) idx else 0
+        if (resolutions.isEmpty()) -1
+        else {
+            val idx = resolutions.indexOfFirst { it.name == currentResolution }
+            if (idx >= 0) idx else 0
+        }
+    }
+
+    LaunchedEffect(activeIndex, resolutions) {
+        if (activeIndex >= 0 && activeIndex < resolutions.size) {
+            try {
+                listState.scrollToItem(activeIndex)
+            } catch (_: Exception) {}
+        }
     }
 
     Column(modifier = Modifier.fillMaxSize()) {
@@ -130,6 +144,7 @@ fun ResolutionRightPane(
         )
         Spacer(modifier = Modifier.height(18.dp))
         LazyColumn(
+            state = listState,
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(8.dp),
         ) {
