@@ -33,8 +33,37 @@ object DisplayManager {
     private val physSizeRegex = Regex("""Physical size:\s*(\d+x\d+)""")
     private val marginRegex = Regex("""Margin:\s*left=(\d+)\s*right=(\d+)\s*top=(\d+)\s*bottom=(\d+)""")
 
+    private const val VENDOR_DISPCONFIG = "LD_LIBRARY_PATH=/vendor/lib /vendor/bin/dispconfig"
+    private var internalMarginBinaryPath: String? = null
+
+    fun init(context: android.content.Context) {
+        try {
+            val file = java.io.File(context.filesDir, "dispconfig.margin")
+            if (!file.exists() || file.length() == 0L) {
+                context.assets.open("dispconfig.margin").use { input ->
+                    java.io.FileOutputStream(file).use { output ->
+                        input.copyTo(output)
+                    }
+                }
+            }
+            file.setExecutable(true, false)
+            internalMarginBinaryPath = file.absolutePath
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun getMarginCommand(margin: Int): String {
+        val binPath = internalMarginBinaryPath
+        return if (binPath != null && java.io.File(binPath).exists()) {
+            "LD_LIBRARY_PATH=/vendor/lib $binPath -m $margin"
+        } else {
+            "LD_LIBRARY_PATH=/vendor/lib dispconfig -m $margin"
+        }
+    }
+
     fun getSupportedResolutions(): List<DisplayMode> {
-        val (stdout, _) = RootUtils.execute("dispconfig -p")
+        val (stdout, _) = RootUtils.execute("$VENDOR_DISPCONFIG -p")
         // Expected format could be something like "  - [10] DISP_TV_MOD_1080P_60HZ"
         val modes = mutableListOf<DisplayMode>()
         stdout.lines().forEach { line ->
@@ -60,7 +89,7 @@ object DisplayManager {
     }
 
     fun getCurrentResolution(): String {
-        val (stdout, _) = RootUtils.execute("dispconfig -d")
+        val (stdout, _) = RootUtils.execute("$VENDOR_DISPCONFIG -d")
         val match = currentModeRegex.find(stdout)
         if (match != null) {
             val modeId = match.groupValues[1].toIntOrNull()
@@ -75,7 +104,7 @@ object DisplayManager {
 
     fun setResolution(modeId: Int) {
         // Set HDMI output mode
-        RootUtils.execute("dispconfig -s $modeId")
+        RootUtils.execute("$VENDOR_DISPCONFIG -s $modeId")
     }
 
     fun saveOutputResolutionPersist(modeId: Int) {
@@ -141,7 +170,7 @@ object DisplayManager {
         }
         
         // Try parsing from dispconfig -d if prop is empty
-        val (dispStdout, _) = RootUtils.execute("dispconfig -d")
+        val (dispStdout, _) = RootUtils.execute("$VENDOR_DISPCONFIG -d")
         val match = marginRegex.find(dispStdout)
         if (match != null) {
             val left = match.groupValues[1].toIntOrNull() ?: 100
@@ -157,6 +186,6 @@ object DisplayManager {
     fun setOverscan(margin: Int) {
         val marginStr = "$margin,$margin,$margin,$margin"
         RootUtils.execute("setprop persist.disp.margin.hdmi \"$marginStr\"")
-        RootUtils.execute("dispconfig -m $margin")
+        RootUtils.execute(getMarginCommand(margin))
     }
 }

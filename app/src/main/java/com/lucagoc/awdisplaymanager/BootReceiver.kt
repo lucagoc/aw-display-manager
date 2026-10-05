@@ -12,6 +12,7 @@ class BootReceiver : BroadcastReceiver() {
         if (intent?.action != Intent.ACTION_BOOT_COMPLETED) return
 
         val pendingResult = goAsync()
+        DisplayManager.init(context)
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val prefs = context.getSharedPreferences("display_settings", Context.MODE_PRIVATE)

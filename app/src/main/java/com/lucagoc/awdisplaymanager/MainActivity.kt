@@ -19,6 +19,7 @@ class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalTvMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        DisplayManager.init(this)
         setContent {
             AllwinnerScreenSettingsTheme {
                 Surface(
