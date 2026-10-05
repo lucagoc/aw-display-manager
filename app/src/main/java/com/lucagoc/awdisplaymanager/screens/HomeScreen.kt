@@ -117,6 +117,23 @@ fun HomeScreenLeftPane(
         )
         Spacer(modifier = Modifier.height(8.dp))
         SettingsItem(
+            title = stringResource(R.string.color_space),
+            subtitle = when (viewModel.currentPixelFormat.collectAsState().value.uppercase()) {
+                "RGB" -> stringResource(R.string.color_rgb)
+                "YUV444" -> stringResource(R.string.color_yuv444)
+                "YUV422" -> stringResource(R.string.color_yuv422)
+                "YUV420" -> stringResource(R.string.color_yuv420)
+                else -> viewModel.currentPixelFormat.collectAsState().value.ifEmpty { stringResource(R.string.color_rgb) }
+            },
+            icon = DisplaySettings,
+            isSelected = (selectedItem == SettingsMenu.COLOR_SPACE),
+            modifier = Modifier
+                .focusRequester(focusRequesters[SettingsMenu.COLOR_SPACE] ?: remember { FocusRequester() })
+                .onFocusChanged { if (it.isFocused) onSelectItem(SettingsMenu.COLOR_SPACE) },
+            onClick = { onConfirmItem(SettingsMenu.COLOR_SPACE) },
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        SettingsItem(
             title = stringResource(R.string.overscan),
             subtitle = stringResource(R.string.adjust_screen_margins),
             icon = Resize,

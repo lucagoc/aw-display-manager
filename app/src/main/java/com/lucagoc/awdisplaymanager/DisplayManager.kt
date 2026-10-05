@@ -202,4 +202,31 @@ object DisplayManager {
         val (stdout, _) = RootUtils.execute("$VENDOR_DISPCONFIG -c $validMode")
         return stdout.contains("success", ignoreCase = true)
     }
+
+    private val pixelFormatRegex = Regex("""pixelformat:\s*([A-Za-z0-9 ]+)""")
+
+    fun getCurrentPixelFormat(): String {
+        val (stdout, _) = RootUtils.execute("$VENDOR_DISPCONFIG -d")
+        val match = pixelFormatRegex.find(stdout)
+        val formatStr = match?.groupValues?.getOrNull(1)?.trim()?.uppercase() ?: "AUTO"
+        return when {
+            formatStr.contains("RGB") -> "RGB"
+            formatStr.contains("YUV444") -> "YUV444"
+            formatStr.contains("YUV422") -> "YUV422"
+            formatStr.contains("YUV420") -> "YUV420"
+            else -> "RGB"
+        }
+    }
+
+    fun setPixelFormat(format: String): Boolean {
+        val arg = when (format.uppercase()) {
+            "RGB" -> "rgb-8"
+            "YUV444" -> "yuv444-8"
+            "YUV422" -> "yuv422-10"
+            "YUV420" -> "yuv420-10"
+            else -> "rgb-8"
+        }
+        val (stdout, _) = RootUtils.execute("$VENDOR_DISPCONFIG -f $arg")
+        return stdout.contains("success", ignoreCase = true)
+    }
 }

@@ -35,6 +35,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _currentHdrMode = MutableStateFlow("AUTO")
     val currentHdrMode: StateFlow<String> = _currentHdrMode
 
+    private val _currentPixelFormat = MutableStateFlow("RGB")
+    val currentPixelFormat: StateFlow<String> = _currentPixelFormat
+
     private val _overscan = MutableStateFlow(listOf(100, 100, 100, 100))
     val overscan: StateFlow<List<Int>> = _overscan
 
@@ -131,12 +134,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             val currentDataspace = DisplayManager.getCurrentDataspace()
+            val currentFormat = DisplayManager.getCurrentPixelFormat()
 
             withContext(Dispatchers.Main) {
                 _supportedResolutions.value = modes
                 _currentResolution.value = currentOutput
                 _formattedCurrentResolution.value = formatResolutionName(currentOutput)
                 _currentHdrMode.value = currentDataspace
+                _currentPixelFormat.value = currentFormat
                 _overscan.value = margins
                 _currentRenderResolution.value = renderRes
                 _recommendedDensity.value = recDpi
@@ -153,6 +158,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val updated = DisplayManager.getCurrentDataspace()
             withContext(Dispatchers.Main) {
                 _currentHdrMode.value = updated
+            }
+        }
+    }
+
+    fun setPixelFormat(format: String) {
+        val uppercaseFormat = format.uppercase().trim()
+        _currentPixelFormat.value = uppercaseFormat
+        viewModelScope.launch(Dispatchers.IO) {
+            DisplayManager.setPixelFormat(uppercaseFormat)
+            val updated = DisplayManager.getCurrentPixelFormat()
+            withContext(Dispatchers.Main) {
+                _currentPixelFormat.value = updated
             }
         }
     }

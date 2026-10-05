@@ -7,6 +7,12 @@
     <string name="hdr_auto">Automatic</string>
     <string name="hdr_force_hdr">Always HDR</string>
     <string name="hdr_force_sdr">Always SDR (Disabled)</string>
+    <string name="color_space">Color Space</string>
+    <string name="select_color_space">Select Color Space</string>
+    <string name="color_rgb">RGB 8-bit</string>
+    <string name="color_yuv444">YCbCr 4:4:4 8-bit</string>
+    <string name="color_yuv422">YCbCr 4:2:2 10/12-bit</string>
+    <string name="color_yuv420">YCbCr 4:2:0 10-bit</string>
     <string name="density">Density</string>
     <string name="overscan">Overscan</string>
     <string name="active">Active</string>

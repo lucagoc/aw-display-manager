@@ -26,6 +26,7 @@ enum class SettingsMenu {
     ROOT,
     RESOLUTION,
     HDR,
+    COLOR_SPACE,
     ADVANCED,
     RENDER_RESOLUTION,
     DENSITY,
@@ -53,6 +54,7 @@ fun TwoColumnSettingsLayout(
         mapOf(
             SettingsMenu.RESOLUTION to FocusRequester(),
             SettingsMenu.HDR to FocusRequester(),
+            SettingsMenu.COLOR_SPACE to FocusRequester(),
             SettingsMenu.ADVANCED to FocusRequester(),
             SettingsMenu.OVERSCAN to FocusRequester(),
             SettingsMenu.ABOUT to FocusRequester(),
@@ -262,6 +264,12 @@ fun TwoColumnSettingsLayout(
                             }
                             SettingsMenu.HDR -> {
                                 HdrRightPane(
+                                    viewModel = viewModel,
+                                    focusRequester = activeRightFocusRequester
+                                )
+                            }
+                            SettingsMenu.COLOR_SPACE -> {
+                                ColorSpaceRightPane(
                                     viewModel = viewModel,
                                     focusRequester = activeRightFocusRequester
                                 )
