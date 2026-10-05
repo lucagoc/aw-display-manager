@@ -25,6 +25,7 @@ import com.lucagoc.awdisplaymanager.ui.theme.TvSurfaceContainerLow
 enum class SettingsMenu {
     ROOT,
     RESOLUTION,
+    HDR,
     ADVANCED,
     RENDER_RESOLUTION,
     DENSITY,
@@ -51,6 +52,7 @@ fun TwoColumnSettingsLayout(
     val rootFocusRequesters = remember {
         mapOf(
             SettingsMenu.RESOLUTION to FocusRequester(),
+            SettingsMenu.HDR to FocusRequester(),
             SettingsMenu.ADVANCED to FocusRequester(),
             SettingsMenu.OVERSCAN to FocusRequester(),
             SettingsMenu.ABOUT to FocusRequester(),
@@ -254,6 +256,12 @@ fun TwoColumnSettingsLayout(
                         when (target) {
                             SettingsMenu.RESOLUTION -> {
                                 ResolutionRightPane(
+                                    viewModel = viewModel,
+                                    focusRequester = activeRightFocusRequester
+                                )
+                            }
+                            SettingsMenu.HDR -> {
+                                HdrRightPane(
                                     viewModel = viewModel,
                                     focusRequester = activeRightFocusRequester
                                 )

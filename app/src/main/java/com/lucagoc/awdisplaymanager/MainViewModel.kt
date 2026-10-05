@@ -32,6 +32,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _formattedCurrentResolution = MutableStateFlow("Loading...")
     val formattedCurrentResolution: StateFlow<String> = _formattedCurrentResolution
 
+    private val _currentHdrMode = MutableStateFlow("AUTO")
+    val currentHdrMode: StateFlow<String> = _currentHdrMode
+
     private val _overscan = MutableStateFlow(listOf(100, 100, 100, 100))
     val overscan: StateFlow<List<Int>> = _overscan
 
@@ -127,14 +130,29 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
 
+            val currentDataspace = DisplayManager.getCurrentDataspace()
+
             withContext(Dispatchers.Main) {
                 _supportedResolutions.value = modes
                 _currentResolution.value = currentOutput
                 _formattedCurrentResolution.value = formatResolutionName(currentOutput)
+                _currentHdrMode.value = currentDataspace
                 _overscan.value = margins
                 _currentRenderResolution.value = renderRes
                 _recommendedDensity.value = recDpi
                 _currentDensity.value = densityVal
+            }
+        }
+    }
+
+    fun setHdrMode(mode: String) {
+        val uppercaseMode = mode.uppercase().trim()
+        _currentHdrMode.value = uppercaseMode
+        viewModelScope.launch(Dispatchers.IO) {
+            DisplayManager.setDataspace(uppercaseMode)
+            val updated = DisplayManager.getCurrentDataspace()
+            withContext(Dispatchers.Main) {
+                _currentHdrMode.value = updated
             }
         }
     }

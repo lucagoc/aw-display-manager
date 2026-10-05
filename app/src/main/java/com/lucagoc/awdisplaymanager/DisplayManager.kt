@@ -188,4 +188,18 @@ object DisplayManager {
         RootUtils.execute("setprop persist.disp.margin.hdmi \"$marginStr\"")
         RootUtils.execute(getMarginCommand(margin))
     }
+
+    private val dataspaceRegex = Regex("""dataspace:\s*([A-Za-z]+)""")
+
+    fun getCurrentDataspace(): String {
+        val (stdout, _) = RootUtils.execute("$VENDOR_DISPCONFIG -d")
+        val match = dataspaceRegex.find(stdout)
+        return match?.groupValues?.getOrNull(1)?.uppercase() ?: "AUTO"
+    }
+
+    fun setDataspace(mode: String): Boolean {
+        val validMode = mode.lowercase().trim()
+        val (stdout, _) = RootUtils.execute("$VENDOR_DISPCONFIG -c $validMode")
+        return stdout.contains("success", ignoreCase = true)
+    }
 }

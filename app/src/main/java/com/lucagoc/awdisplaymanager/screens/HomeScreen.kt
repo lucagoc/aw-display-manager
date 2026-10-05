@@ -102,6 +102,21 @@ fun HomeScreenLeftPane(
         )
         Spacer(modifier = Modifier.height(8.dp))
         SettingsItem(
+            title = stringResource(R.string.hdr),
+            subtitle = when (viewModel.currentHdrMode.collectAsState().value.uppercase()) {
+                "HDR" -> stringResource(R.string.hdr_force_hdr)
+                "SDR" -> stringResource(R.string.hdr_force_sdr)
+                else -> stringResource(R.string.hdr_auto)
+            },
+            icon = HighDensity,
+            isSelected = (selectedItem == SettingsMenu.HDR),
+            modifier = Modifier
+                .focusRequester(focusRequesters[SettingsMenu.HDR] ?: remember { FocusRequester() })
+                .onFocusChanged { if (it.isFocused) onSelectItem(SettingsMenu.HDR) },
+            onClick = { onConfirmItem(SettingsMenu.HDR) },
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        SettingsItem(
             title = stringResource(R.string.overscan),
             subtitle = stringResource(R.string.adjust_screen_margins),
             icon = Resize,

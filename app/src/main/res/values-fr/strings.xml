@@ -2,6 +2,11 @@
     <string name="app_name">Gestionnaire d\'affichage</string>
     <string name="display_manager">Gestionnaire d\'affichage</string>
     <string name="resolution">Résolution</string>
+    <string name="hdr">HDR</string>
+    <string name="select_hdr">Sélectionner le mode HDR</string>
+    <string name="hdr_auto">Automatique</string>
+    <string name="hdr_force_hdr">Toujours en HDR</string>
+    <string name="hdr_force_sdr">Toujours en SDR (Désactivé)</string>
     <string name="density">Densité</string>
     <string name="overscan">Surbalayage</string>
     <string name="active">Actif</string>
