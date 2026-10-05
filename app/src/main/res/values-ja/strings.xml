@@ -4,6 +4,7 @@
     <string name="resolution">解像度</string>
     <string name="density">密度</string>
     <string name="overscan">オーバースキャン</string>
+    <string name="active">有効</string>
     <string name="adjust_screen_margins">画面の余白を調整</string>
     <string name="keep_this_resolution">この解像度を保持しますか？</string>
     <string name="reverting_in_seconds">%1$d秒後に元に戻します&#8230;</string>

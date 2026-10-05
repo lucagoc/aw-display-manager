@@ -10,9 +10,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Surface
 import com.lucagoc.awdisplaymanager.screens.*
@@ -37,7 +34,6 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AppNavigation() {
-    val navController = rememberNavController()
     val viewModel: MainViewModel = viewModel()
     val hasRootAccess by viewModel.hasRootAccess.collectAsState()
 
@@ -46,48 +42,5 @@ fun AppNavigation() {
         return
     }
 
-    NavHost(navController = navController, startDestination = "home") {
-        composable("home") {
-            HomeScreen(
-                viewModel = viewModel,
-                onNavigateToResolution = { navController.navigate("resolution") },
-                onNavigateToAdvanced = { navController.navigate("advanced") },
-                onNavigateToOverscan = { navController.navigate("overscan") },
-                onNavigateToAbout = { navController.navigate("about") },
-            )
-        }
-        composable("advanced") {
-            AdvancedScreen(
-                viewModel = viewModel,
-                onNavigateToRenderResolution = { navController.navigate("render_resolution") },
-                onNavigateToDensity = { navController.navigate("density") },
-                onNavigateBack = { navController.popBackStack() },
-            )
-        }
-        composable("render_resolution") {
-            RenderResolutionScreen(viewModel = viewModel) {
-                navController.popBackStack()
-            }
-        }
-        composable("density") {
-            DensityScreen(viewModel = viewModel) {
-                navController.popBackStack()
-            }
-        }
-        composable("resolution") {
-            ResolutionScreen(viewModel = viewModel) {
-                navController.popBackStack()
-            }
-        }
-        composable("overscan") {
-            OverscanScreen(viewModel = viewModel) {
-                navController.popBackStack()
-            }
-        }
-        composable("about") {
-            AboutScreen(viewModel = viewModel) {
-                navController.popBackStack()
-            }
-        }
-    }
+    TwoColumnSettingsLayout(viewModel = viewModel)
 }

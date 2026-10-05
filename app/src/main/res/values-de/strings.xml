@@ -4,6 +4,7 @@
     <string name="resolution">Auflösung</string>
     <string name="density">Pixeldichte (DPI)</string>
     <string name="overscan">Overscan</string>
+    <string name="active">Aktiv</string>
     <string name="adjust_screen_margins">Bildschirmränder anpassen</string>
     <string name="keep_this_resolution">Diese Auflösung beibehalten?</string>
     <string name="reverting_in_seconds">Wiederherstellung in %1$d Sekunden&#8230;</string>

@@ -4,6 +4,7 @@
     <string name="resolution">해상도</string>
     <string name="density">밀도</string>
     <string name="overscan">오버스캔</string>
+    <string name="active">활성</string>
     <string name="adjust_screen_margins">화면 여백 조정</string>
     <string name="keep_this_resolution">이 해상도를 유지하시겠습니까?</string>
     <string name="reverting_in_seconds">%1$d초 후 되돌리기&#8230;</string>

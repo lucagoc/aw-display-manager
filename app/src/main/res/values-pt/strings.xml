@@ -4,6 +4,7 @@
     <string name="resolution">Resolução</string>
     <string name="density">Densidade</string>
     <string name="overscan">Overscan</string>
+    <string name="active">Ativo</string>
     <string name="adjust_screen_margins">Ajustar margens da tela</string>
     <string name="keep_this_resolution">Manter esta resolução?</string>
     <string name="reverting_in_seconds">Revertendo em %1$d segundos&#8230;</string>

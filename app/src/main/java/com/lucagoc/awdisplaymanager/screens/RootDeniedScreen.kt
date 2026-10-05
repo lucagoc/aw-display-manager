@@ -7,15 +7,11 @@ import androidx.compose.material.icons.filled.Warning
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.tv.material3.ExperimentalTvMaterial3Api
-import androidx.tv.material3.Icon
-import androidx.tv.material3.Text
+import androidx.tv.material3.*
 import com.lucagoc.awdisplaymanager.R
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -24,33 +20,38 @@ fun RootDeniedScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF000000)),
+            .background(MaterialTheme.colorScheme.surface),
         contentAlignment = Alignment.Center,
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(32.dp),
+        Surface(
+            shape = MaterialTheme.shapes.medium,
+            modifier = Modifier.padding(32.dp)
         ) {
-            Icon(
-                imageVector = Icons.Default.Warning,
-                contentDescription = null,
-                tint = Color.White,
-                modifier = Modifier.size(64.dp),
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = stringResource(R.string.root_access_denied),
-                fontSize = 32.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = stringResource(R.string.root_required_desc),
-                fontSize = 18.sp,
-                color = Color.LightGray,
-                textAlign = TextAlign.Center,
-            )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(36.dp),
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Warning,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(56.dp),
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Text(
+                    text = stringResource(R.string.root_access_denied),
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface,
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                Text(
+                    text = stringResource(R.string.root_required_desc),
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    textAlign = TextAlign.Center,
+                )
+            }
         }
     }
 }

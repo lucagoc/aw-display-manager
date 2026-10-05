@@ -4,6 +4,7 @@
     <string name="resolution">रिज़ॉल्यूशन</string>
     <string name="density">घनत्व (Density)</string>
     <string name="overscan">ओवरस्कैन</string>
+    <string name="active">सक्रिय</string>
     <string name="adjust_screen_margins">स्क्रीन मार्जिन समायोजित करें</string>
     <string name="keep_this_resolution">क्या यह रिज़ॉल्यूशन रखें?</string>
     <string name="reverting_in_seconds">%1$d सेकंड में वापस आ रहा है&#8230;</string>

@@ -4,6 +4,7 @@
     <string name="resolution">Resolusi</string>
     <string name="density">Kepadatan (Density)</string>
     <string name="overscan">Overscan</string>
+    <string name="active">Aktif</string>
     <string name="adjust_screen_margins">Sesuaikan margin layar</string>
     <string name="keep_this_resolution">Simpan resolusi ini?</string>
     <string name="reverting_in_seconds">Mengembalikan dalam %1$d detik&#8230;</string>

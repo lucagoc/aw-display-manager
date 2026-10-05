@@ -4,6 +4,7 @@
     <string name="resolution">Разрешение</string>
     <string name="density">Плотность</string>
     <string name="overscan">Настройка полей (Overscan)</string>
+    <string name="active">Активно</string>
     <string name="adjust_screen_margins">Настройка полей экрана</string>
     <string name="keep_this_resolution">Сохранить это разрешение?</string>
     <string name="reverting_in_seconds">Отмена через %1$d сек&#8230;</string>

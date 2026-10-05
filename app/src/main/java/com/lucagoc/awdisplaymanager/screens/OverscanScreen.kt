@@ -17,12 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.*
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.tv.material3.*
 import com.lucagoc.awdisplaymanager.MainViewModel
 import com.lucagoc.awdisplaymanager.R
 import com.lucagoc.awdisplaymanager.ui.icons.Resize
+import com.lucagoc.awdisplaymanager.ui.theme.TvSurfaceContainerHigh
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalTvMaterial3Api::class)
 @Composable
@@ -33,107 +34,137 @@ fun OverscanScreen(
     val overscan by viewModel.overscan.collectAsState()
     val margin = overscan.firstOrNull() ?: 100
 
-    val focusRequester = remember { FocusRequester() }
+    val saveFocusRequester = remember { FocusRequester() }
 
     LaunchedEffect(Unit) {
         viewModel.startOverscanAdjustment()
-        focusRequester.requestFocus()
+        saveFocusRequester.requestFocus()
     }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF003366)) // Dark Blue to see physical limits
-            .border(8.dp, Color.Red), // Thick red border to easily spot edges
+            .background(Color(0xFF141414)) // Dark monochrome calibration background
+            .border(6.dp, MaterialTheme.colorScheme.primary) // White calibration border
+            .onKeyEvent { event ->
+                if (event.type == KeyEventType.KeyDown) {
+                    when (event.key) {
+                        Key.DirectionUp -> {
+                            viewModel.updateOverscan(margin + 1)
+                            true
+                        }
+                        Key.DirectionDown -> {
+                            viewModel.updateOverscan(margin - 1)
+                            true
+                        }
+                        else -> false
+                    }
+                } else false
+            },
         contentAlignment = Alignment.Center,
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .background(Color(0xCC000000), MaterialTheme.shapes.medium)
-                .padding(32.dp),
+        Surface(
+            shape = MaterialTheme.shapes.medium,
+            modifier = Modifier.padding(24.dp)
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(Resize, contentDescription = null, modifier = Modifier.size(36.dp), tint = Color.White)
-                Spacer(modifier = Modifier.width(16.dp))
-                Text(
-                    text = stringResource(R.string.screen_adjustment),
-                    fontSize = 32.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
-                )
-            }
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = stringResource(R.string.margin_percent, margin),
-                fontSize = 24.sp,
-                color = Color.White,
-            )
-            Text(
-                text = stringResource(R.string.use_dpad_to_adjust),
-                fontSize = 16.sp,
-                color = Color.Gray,
-            )
-            Spacer(modifier = Modifier.height(32.dp))
-
-            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                Button(
-                    onClick = { /* Do nothing, just to hold focus */ },
-                    modifier = Modifier
-                        .onKeyEvent { event ->
-                            when (event.type) {
-                                KeyEventType.KeyDown -> {
-                                    when (event.key) {
-                                        Key.DirectionUp -> {
-                                            viewModel.updateOverscan(margin + 1)
-                                            true
-                                        }
-                                        Key.DirectionDown -> {
-                                            viewModel.updateOverscan(margin - 1)
-                                            true
-                                        }
-                                        else -> false
-                                    }
-                                }
-                                else -> false
-                            }
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.padding(28.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Surface(
+                        shape = MaterialTheme.shapes.small,
+                        modifier = Modifier.padding(end = 12.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier.padding(8.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Resize,
+                                contentDescription = null,
+                                modifier = Modifier.size(24.dp),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
                         }
-                        .focusRequester(focusRequester),
-                    colors = ButtonDefaults.colors(containerColor = Color.White, contentColor = Color.Black),
-                ) {
-                    Icon(Resize, contentDescription = null)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(stringResource(R.string.adjust))
+                    }
+                    Text(
+                        text = stringResource(R.string.screen_adjustment),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
                 }
-                
-                Button(
-                    onClick = {
-                        viewModel.saveOverscan()
-                        onNavigateBack()
-                    },
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Surface(
+                    shape = MaterialTheme.shapes.small,
+                    modifier = Modifier.padding(vertical = 4.dp)
                 ) {
-                    Icon(Icons.Default.Check, contentDescription = null)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(stringResource(R.string.save))
+                    Text(
+                        text = stringResource(R.string.margin_percent, margin),
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
+                    )
                 }
-                Button(
-                    onClick = {
-                        viewModel.updateOverscan(100)
-                    },
-                ) {
-                    Icon(Icons.Default.Refresh, contentDescription = null)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(stringResource(R.string.reset))
-                }
-                Button(
-                    onClick = {
-                        viewModel.cancelOverscan()
-                        onNavigateBack()
-                    },
-                ) {
-                    Icon(Icons.Default.Close, contentDescription = null)
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(stringResource(R.string.cancel))
+
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = stringResource(R.string.use_dpad_to_adjust),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+                Spacer(modifier = Modifier.height(24.dp))
+
+                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Button(
+                        onClick = {
+                            viewModel.saveOverscan()
+                            onNavigateBack()
+                        },
+                        modifier = Modifier.focusRequester(saveFocusRequester),
+                        colors = ButtonDefaults.colors(
+                            containerColor = MaterialTheme.colorScheme.primaryContainer,
+                            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    ) {
+                        Icon(Icons.Default.Check, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(R.string.save), style = MaterialTheme.typography.labelLarge)
+                    }
+
+                    Button(
+                        onClick = {
+                            viewModel.updateOverscan(100)
+                        },
+                        colors = ButtonDefaults.colors(
+                            containerColor = TvSurfaceContainerHigh,
+                            contentColor = MaterialTheme.colorScheme.onSurface
+                        )
+                    ) {
+                        Icon(Icons.Default.Refresh, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(R.string.reset), style = MaterialTheme.typography.labelLarge)
+                    }
+
+                    Button(
+                        onClick = {
+                            viewModel.cancelOverscan()
+                            onNavigateBack()
+                        },
+                        colors = ButtonDefaults.colors(
+                            containerColor = TvSurfaceContainerHigh,
+                            contentColor = MaterialTheme.colorScheme.onSurface
+                        )
+                    ) {
+                        Icon(Icons.Default.Close, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(stringResource(R.string.cancel), style = MaterialTheme.typography.labelLarge)
+                    }
                 }
             }
         }
