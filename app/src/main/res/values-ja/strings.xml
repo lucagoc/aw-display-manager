@@ -60,4 +60,5 @@
     <string name="downloading_update">アップデートをダウンロード中&#8230; %1$d%%</string>
     <string name="installing_update">アップデートをインストール中&#8230;</string>
     <string name="update_failed">アップデート失敗: %1$s</string>
+    <string name="loading">読み込み中&#8230;</string>
 </resources>

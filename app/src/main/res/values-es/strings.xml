@@ -60,4 +60,5 @@
     <string name="downloading_update">Descargando actualización&#8230; %1$d%%</string>
     <string name="installing_update">Instalando actualización&#8230;</string>
     <string name="update_failed">Error en la actualización: %1$s</string>
+    <string name="loading">Cargando&#8230;</string>
 </resources>

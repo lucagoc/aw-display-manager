@@ -60,4 +60,5 @@
     <string name="downloading_update">Mengunduh pembaruan&#8230; %1$d%%</string>
     <string name="installing_update">Memasang pembaruan&#8230;</string>
     <string name="update_failed">Gagal memperbarui: %1$s</string>
+    <string name="loading">Memuat&#8230;</string>
 </resources>

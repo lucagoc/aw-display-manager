@@ -26,10 +26,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _supportedResolutions = MutableStateFlow<List<DisplayMode>>(emptyList())
     val supportedResolutions: StateFlow<List<DisplayMode>> = _supportedResolutions
 
-    private val _currentResolution = MutableStateFlow("Loading...")
+    private val _currentResolution = MutableStateFlow(application.getString(R.string.loading))
     val currentResolution: StateFlow<String> = _currentResolution
 
-    private val _formattedCurrentResolution = MutableStateFlow("Loading...")
+    private val _formattedCurrentResolution = MutableStateFlow(application.getString(R.string.loading))
     val formattedCurrentResolution: StateFlow<String> = _formattedCurrentResolution
 
     private val _currentHdrMode = MutableStateFlow("AUTO")
