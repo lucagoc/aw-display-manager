@@ -28,7 +28,7 @@ class BootReceiver : BroadcastReceiver() {
                 // 2. Restore or compute render resolution
                 val isAutoRender = prefs.getBoolean("pref_auto_render_resolution", true)
                 val renderRes = if (isAutoRender) {
-                    val currentOutput = if (savedModeName.isNotEmpty()) savedModeName else DisplayManager.getCurrentResolution()
+                    val currentOutput = savedModeName.ifEmpty { DisplayManager.getCurrentResolution() }
                     DisplayManager.computeAutoRenderResolution(currentOutput)
                 } else {
                     prefs.getString("pref_manual_render_resolution", "1920x1080") ?: "1920x1080"

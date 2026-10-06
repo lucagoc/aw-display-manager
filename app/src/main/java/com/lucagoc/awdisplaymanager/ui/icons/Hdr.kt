@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.vector.path
 import androidx.compose.ui.unit.dp
 
 @Suppress("CheckReturnValue")
-public val hdr_on: ImageVector
+val hdr_on: ImageVector
     get() {
         if (_hdr_on != null) {
             return _hdr_on!!
@@ -33,7 +33,7 @@ public val hdr_on: ImageVector
                         strokeLineCap = StrokeCap.Butt,
                         strokeLineJoin = StrokeJoin.Bevel,
                         strokeLineMiter = 1f,
-                        pathFillType = PathFillType.Companion.NonZero,
+                        pathFillType = PathFillType.NonZero,
                     ) {
                         moveTo(16f, 15f)
                         verticalLineTo(9f)
