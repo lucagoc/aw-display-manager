@@ -2,6 +2,17 @@
     <string name="app_name">डिस्प्ले मैनेजर</string>
     <string name="display_manager">डिस्प्ले मैनेजर</string>
     <string name="resolution">रिज़ॉल्यूशन</string>
+    <string name="hdr">HDR</string>
+    <string name="select_hdr">HDR मोड चुनें</string>
+    <string name="hdr_auto">स्वचालित</string>
+    <string name="hdr_force_hdr">हमेशा HDR</string>
+    <string name="hdr_force_sdr">हमेशा SDR (निष्क्रिय)</string>
+    <string name="color_space">कलर स्पेस</string>
+    <string name="select_color_space">कलर स्पेस चुनें</string>
+    <string name="color_rgb">RGB 8-बिट</string>
+    <string name="color_yuv444">YCbCr 4:4:4 8-बिट</string>
+    <string name="color_yuv422">YCbCr 4:2:2 10/12-बिट</string>
+    <string name="color_yuv420">YCbCr 4:2:0 10-बिट</string>
     <string name="density">घनत्व (Density)</string>
     <string name="overscan">ओवरस्कैन</string>
     <string name="active">सक्रिय</string>

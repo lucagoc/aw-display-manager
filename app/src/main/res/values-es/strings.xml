@@ -2,6 +2,17 @@
     <string name="app_name">Administrador de Pantalla</string>
     <string name="display_manager">Administrador de Pantalla</string>
     <string name="resolution">Resolución</string>
+    <string name="hdr">HDR</string>
+    <string name="select_hdr">Seleccionar modo HDR</string>
+    <string name="hdr_auto">Automático</string>
+    <string name="hdr_force_hdr">Siempre HDR</string>
+    <string name="hdr_force_sdr">Siempre SDR (Desactivado)</string>
+    <string name="color_space">Espacio de color</string>
+    <string name="select_color_space">Seleccionar espacio de color</string>
+    <string name="color_rgb">RGB 8 bits</string>
+    <string name="color_yuv444">YCbCr 4:4:4 8 bits</string>
+    <string name="color_yuv422">YCbCr 4:2:2 10/12 bits</string>
+    <string name="color_yuv420">YCbCr 4:2:0 10 bits</string>
     <string name="density">Densidad</string>
     <string name="overscan">Overscan</string>
     <string name="active">Activo</string>

@@ -2,6 +2,17 @@
     <string name="app_name">ディスプレイマネージャー</string>
     <string name="display_manager">ディスプレイマネージャー</string>
     <string name="resolution">解像度</string>
+    <string name="hdr">HDR</string>
+    <string name="select_hdr">HDRモードを選択</string>
+    <string name="hdr_auto">自動</string>
+    <string name="hdr_force_hdr">常にHDR</string>
+    <string name="hdr_force_sdr">常にSDR (無効)</string>
+    <string name="color_space">色空間</string>
+    <string name="select_color_space">色空間を選択</string>
+    <string name="color_rgb">RGB 8ビット</string>
+    <string name="color_yuv444">YCbCr 4:4:4 8ビット</string>
+    <string name="color_yuv422">YCbCr 4:2:2 10/12ビット</string>
+    <string name="color_yuv420">YCbCr 4:2:0 10ビット</string>
     <string name="density">密度</string>
     <string name="overscan">オーバースキャン</string>
     <string name="active">有効</string>

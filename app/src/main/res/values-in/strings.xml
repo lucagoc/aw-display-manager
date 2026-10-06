@@ -2,6 +2,17 @@
     <string name="app_name">Pengelola Layar</string>
     <string name="display_manager">Pengelola Layar</string>
     <string name="resolution">Resolusi</string>
+    <string name="hdr">HDR</string>
+    <string name="select_hdr">Pilih Mode HDR</string>
+    <string name="hdr_auto">Otomatis</string>
+    <string name="hdr_force_hdr">Selalu HDR</string>
+    <string name="hdr_force_sdr">Selalu SDR (Nonaktif)</string>
+    <string name="color_space">Ruang Warna</string>
+    <string name="select_color_space">Pilih Ruang Warna</string>
+    <string name="color_rgb">RGB 8-bit</string>
+    <string name="color_yuv444">YCbCr 4:4:4 8-bit</string>
+    <string name="color_yuv422">YCbCr 4:2:2 10/12-bit</string>
+    <string name="color_yuv420">YCbCr 4:2:0 10-bit</string>
     <string name="density">Kepadatan (Density)</string>
     <string name="overscan">Overscan</string>
     <string name="active">Aktif</string>

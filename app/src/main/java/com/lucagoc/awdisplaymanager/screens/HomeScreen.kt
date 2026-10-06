@@ -108,7 +108,11 @@ fun HomeScreenLeftPane(
                 "SDR" -> stringResource(R.string.hdr_force_sdr)
                 else -> stringResource(R.string.hdr_auto)
             },
-            icon = HighDensity,
+            icon = when (viewModel.currentHdrMode.collectAsState().value.uppercase()) {
+                "HDR" -> hdr_on
+                "SDR" -> block
+                else -> hdr_auto
+            },
             isSelected = (selectedItem == SettingsMenu.HDR),
             modifier = Modifier
                 .focusRequester(focusRequesters[SettingsMenu.HDR] ?: remember { FocusRequester() })
@@ -125,7 +129,7 @@ fun HomeScreenLeftPane(
                 "YUV420" -> stringResource(R.string.color_yuv420)
                 else -> viewModel.currentPixelFormat.collectAsState().value.ifEmpty { stringResource(R.string.color_rgb) }
             },
-            icon = DisplaySettings,
+            icon = palette,
             isSelected = (selectedItem == SettingsMenu.COLOR_SPACE),
             modifier = Modifier
                 .focusRequester(focusRequesters[SettingsMenu.COLOR_SPACE] ?: remember { FocusRequester() })

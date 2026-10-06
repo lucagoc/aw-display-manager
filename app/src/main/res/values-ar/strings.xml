@@ -2,6 +2,17 @@
     <string name="app_name">مدير الشاشة</string>
     <string name="display_manager">مدير الشاشة</string>
     <string name="resolution">الدقة</string>
+    <string name="hdr">HDR</string>
+    <string name="select_hdr">حدد وضع HDR</string>
+    <string name="hdr_auto">تلقائي</string>
+    <string name="hdr_force_hdr">HDR دائمًا</string>
+    <string name="hdr_force_sdr">SDR دائمًا (معطل)</string>
+    <string name="color_space">المساحة اللونية</string>
+    <string name="select_color_space">تحديد المساحة اللونية</string>
+    <string name="color_rgb">RGB 8 بت</string>
+    <string name="color_yuv444">YCbCr 4:4:4 8 بت</string>
+    <string name="color_yuv422">YCbCr 4:2:2 10/12 بت</string>
+    <string name="color_yuv420">YCbCr 4:2:0 10 بت</string>
     <string name="density">الكثافة</string>
     <string name="overscan">مسح زائد (Overscan)</string>
     <string name="active">نشط</string>

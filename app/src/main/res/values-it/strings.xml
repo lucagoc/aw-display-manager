@@ -2,6 +2,17 @@
     <string name="app_name">Gestore Schermo</string>
     <string name="display_manager">Gestore Schermo</string>
     <string name="resolution">Risoluzione</string>
+    <string name="hdr">HDR</string>
+    <string name="select_hdr">Seleziona modalità HDR</string>
+    <string name="hdr_auto">Automatico</string>
+    <string name="hdr_force_hdr">Sempre HDR</string>
+    <string name="hdr_force_sdr">Sempre SDR (Disattivato)</string>
+    <string name="color_space">Spazio colore</string>
+    <string name="select_color_space">Seleziona spazio colore</string>
+    <string name="color_rgb">RGB 8 bit</string>
+    <string name="color_yuv444">YCbCr 4:4:4 8 bit</string>
+    <string name="color_yuv422">YCbCr 4:2:2 10/12 bit</string>
+    <string name="color_yuv420">YCbCr 4:2:0 10 bit</string>
     <string name="density">Densità</string>
     <string name="overscan">Overscan</string>
     <string name="active">Attivo</string>

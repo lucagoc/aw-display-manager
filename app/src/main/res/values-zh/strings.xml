@@ -2,6 +2,17 @@
     <string name="app_name">显示管理器</string>
     <string name="display_manager">显示管理器</string>
     <string name="resolution">分辨率</string>
+    <string name="hdr">HDR</string>
+    <string name="select_hdr">选择 HDR 模式</string>
+    <string name="hdr_auto">自动</string>
+    <string name="hdr_force_hdr">始终 HDR</string>
+    <string name="hdr_force_sdr">始终 SDR（已禁用）</string>
+    <string name="color_space">色彩空间</string>
+    <string name="select_color_space">选择色彩空间</string>
+    <string name="color_rgb">RGB 8位</string>
+    <string name="color_yuv444">YCbCr 4:4:4 8位</string>
+    <string name="color_yuv422">YCbCr 4:2:2 10/12位</string>
+    <string name="color_yuv420">YCbCr 4:2:0 10位</string>
     <string name="density">密度</string>
     <string name="overscan">过扫描</string>
     <string name="active">已启用</string>

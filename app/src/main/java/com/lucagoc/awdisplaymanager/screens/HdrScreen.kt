@@ -3,12 +3,11 @@ package com.lucagoc.awdisplaymanager.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -17,11 +16,14 @@ import androidx.tv.material3.*
 import com.lucagoc.awdisplaymanager.MainViewModel
 import com.lucagoc.awdisplaymanager.R
 import com.lucagoc.awdisplaymanager.screens.components.SettingsItem
-import com.lucagoc.awdisplaymanager.ui.icons.HighDensity
+import com.lucagoc.awdisplaymanager.ui.icons.block
+import com.lucagoc.awdisplaymanager.ui.icons.hdr_auto
+import com.lucagoc.awdisplaymanager.ui.icons.hdr_on
 
 data class HdrOption(
     val id: String,
     val titleRes: Int,
+    val icon: ImageVector,
     val subtitleRes: Int? = null,
 )
 
@@ -38,14 +40,17 @@ fun HdrRightPane(
             HdrOption(
                 id = "AUTO",
                 titleRes = R.string.hdr_auto,
+                icon = hdr_auto,
             ),
             HdrOption(
                 id = "HDR",
                 titleRes = R.string.hdr_force_hdr,
+                icon = hdr_on,
             ),
             HdrOption(
                 id = "SDR",
                 titleRes = R.string.hdr_force_sdr,
+                icon = block,
             )
         )
     }
@@ -72,7 +77,7 @@ fun HdrRightPane(
 
                 SettingsItem(
                     title = stringResource(opt.titleRes),
-                    icon = HighDensity,
+                    icon = opt.icon,
                     onClick = { viewModel.setHdrMode(opt.id) },
                     isCurrent = isCurrent,
                     modifier = itemModifier,

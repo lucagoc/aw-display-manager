@@ -2,6 +2,17 @@
     <string name="app_name">디스플레이 매니저</string>
     <string name="display_manager">디스플레이 매니저</string>
     <string name="resolution">해상도</string>
+    <string name="hdr">HDR</string>
+    <string name="select_hdr">HDR 모드 선택</string>
+    <string name="hdr_auto">자동</string>
+    <string name="hdr_force_hdr">항상 HDR</string>
+    <string name="hdr_force_sdr">항상 SDR (비활성화)</string>
+    <string name="color_space">색 공간</string>
+    <string name="select_color_space">색 공간 선택</string>
+    <string name="color_rgb">RGB 8비트</string>
+    <string name="color_yuv444">YCbCr 4:4:4 8비트</string>
+    <string name="color_yuv422">YCbCr 4:2:2 10/12비트</string>
+    <string name="color_yuv420">YCbCr 4:2:0 10비트</string>
     <string name="density">밀도</string>
     <string name="overscan">오버스캔</string>
     <string name="active">활성</string>

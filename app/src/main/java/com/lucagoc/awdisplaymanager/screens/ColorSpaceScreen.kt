@@ -15,7 +15,7 @@ import androidx.tv.material3.*
 import com.lucagoc.awdisplaymanager.MainViewModel
 import com.lucagoc.awdisplaymanager.R
 import com.lucagoc.awdisplaymanager.screens.components.SettingsItem
-import com.lucagoc.awdisplaymanager.ui.icons.DisplaySettings
+import com.lucagoc.awdisplaymanager.ui.icons.palette
 
 data class ColorSpaceOption(
     val id: String,
@@ -73,7 +73,7 @@ fun ColorSpaceRightPane(
 
                 SettingsItem(
                     title = stringResource(opt.titleRes),
-                    icon = DisplaySettings,
+                    icon = palette,
                     onClick = { viewModel.setPixelFormat(opt.id) },
                     isCurrent = isCurrent,
                     modifier = itemModifier,
