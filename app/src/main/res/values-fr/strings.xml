@@ -24,46 +24,36 @@
     <string name="confirm">Confirmer</string>
     <string name="cancel">Annuler</string>
     <string name="select_resolution">Sélectionner la résolution</string>
-    <string name="go_back">Retour</string>
 
     <string name="screen_adjustment">Ajustement de l\'écran</string>
     <string name="margin_percent">Marge : %1$d%%</string>
     <string name="use_dpad_to_adjust">Utilisez HAUT / BAS sur la croix directionnelle pour ajuster en temps réel</string>
-    <string name="adjust">Ajuster</string>
     <string name="save">Enregistrer</string>
     <string name="reset">Réinitialiser</string>
-
-    <string name="select_density">Sélectionner la densité (DPI)</string>
 
     <string name="root_access_denied">Accès root refusé</string>
     <string name="root_required_desc">Cette application nécessite l\'accès root (Magisk/SU) pour modifier les paramètres d\'affichage matériel du SoC Allwinner.</string>
 
     <string name="dpi_format">%1$d dpi</string>
     <string name="about">À propos</string>
-    <string name="about_app_desc">Gestionnaire d\'affichage pour SoC Allwinner.</string>
     <string name="version">Version</string>
     <string name="maintainer">Mainteneur</string>
     <string name="github">GitHub</string>
 
     <string name="advanced_options">Options avancées</string>
-    <string name="advanced_options_desc">Configurer la résolution de l\'interface et le DPI</string>
     <string name="advanced_subtitle">Interface : %1$s • %2$d dpi</string>
     <string name="render_resolution">Résolution de l\'interface</string>
-    <string name="select_render_resolution">Sélectionner la résolution de l\'interface</string>
-    <string name="render_resolution_desc">Résolution d\'affichage de l\'interface et des applications</string>
     <string name="auto">Automatique</string>
     <string name="auto_render_subtitle">Actuelle : %1$s</string>
     <string name="auto_density_subtitle">Calculée selon la résolution de l\'interface (%1$d dpi)</string>
     <string name="recommended">Recommandé</string>
     <string name="hd_720p">720p HD (1280x720)</string>
     <string name="fhd_1080p">1080p Full HD (1920x1080)</string>
-    <string name="uhd_4k">4K Ultra HD (3840x2160)</string>
 
     <string name="check_for_updates">Vérifier les mises à jour</string>
     <string name="checking_updates">Vérification des mises à jour&#8230;</string>
     <string name="app_up_to_date">L\'application est à jour</string>
     <string name="update_available">Mise à jour disponible : %1$s</string>
-    <string name="download_and_install">Télécharger et installer</string>
     <string name="downloading_update">Téléchargement de la mise à jour&#8230; %1$d%%</string>
     <string name="installing_update">Installation de la mise à jour&#8230;</string>
     <string name="update_failed">Échec de la mise à jour : %1$s</string>

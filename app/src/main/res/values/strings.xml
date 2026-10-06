@@ -24,46 +24,36 @@
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="select_resolution">Select Resolution</string>
-    <string name="go_back">Go Back</string>
 
     <string name="screen_adjustment">Screen Adjustment</string>
     <string name="margin_percent">Margin: %1$d%%</string>
     <string name="use_dpad_to_adjust">Use UP / DOWN on D-Pad to adjust in real-time</string>
-    <string name="adjust">Adjust</string>
     <string name="save">Save</string>
     <string name="reset">Reset</string>
-
-    <string name="select_density">Select Density (DPI)</string>
 
     <string name="root_access_denied">Root Access Denied</string>
     <string name="root_required_desc">This application requires root privileges (Magisk/SU) to modify hardware display settings on the Allwinner SoC.</string>
 
     <string name="dpi_format">%1$d dpi</string>
     <string name="about">About</string>
-    <string name="about_app_desc">Display Manager for Allwinner SoCs.</string>
     <string name="version">Version</string>
     <string name="maintainer">Maintainer</string>
     <string name="github">GitHub</string>
 
     <string name="advanced_options">Advanced Options</string>
-    <string name="advanced_options_desc">Configure interface resolution and DPI</string>
     <string name="advanced_subtitle">Interface: %1$s • %2$d dpi</string>
     <string name="render_resolution">Interface Resolution</string>
-    <string name="select_render_resolution">Select Interface Resolution</string>
-    <string name="render_resolution_desc">UI and application rendering resolution</string>
     <string name="auto">Automatic</string>
     <string name="auto_render_subtitle">Current: %1$s</string>
     <string name="auto_density_subtitle">Calculated from interface resolution (%1$d dpi)</string>
     <string name="recommended">Recommended</string>
     <string name="hd_720p">720p HD (1280x720)</string>
     <string name="fhd_1080p">1080p Full HD (1920x1080)</string>
-    <string name="uhd_4k">4K Ultra HD (3840x2160)</string>
 
     <string name="check_for_updates">Check for updates</string>
     <string name="checking_updates">Checking for updates&#8230;</string>
     <string name="app_up_to_date">App is up to date</string>
     <string name="update_available">Update available: %1$s</string>
-    <string name="download_and_install">Download &amp; Install</string>
     <string name="downloading_update">Downloading update&#8230; %1$d%%</string>
     <string name="installing_update">Installing update&#8230;</string>
     <string name="update_failed">Update failed: %1$s</string>
