@@ -7,6 +7,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
@@ -31,6 +32,7 @@ fun SettingsItem(
     isSelected: Boolean = false,
     enabled: Boolean = true,
 ) {
+    var isFocused by remember { mutableStateOf(false) }
     val containerColor = if (isSelected) TvSurfaceContainerHigh else TvSurfaceContainer
 
     Surface(
@@ -49,7 +51,9 @@ fun SettingsItem(
             focusedScale = if (enabled) 1.02f else 1f,
             disabledScale = 1f
         ),
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .onFocusChanged { isFocused = it.isFocused },
     ) {
         Row(
             modifier = Modifier
@@ -94,6 +98,18 @@ fun SettingsItem(
             }
 
             if (isCurrent) {
+                val isItemHighlighted = isFocused || isSelected
+                val badgeBgColor = if (isItemHighlighted) {
+                    MaterialTheme.colorScheme.onPrimaryContainer
+                } else {
+                    MaterialTheme.colorScheme.primaryContainer
+                }
+                val badgeContentColor = if (isItemHighlighted) {
+                    MaterialTheme.colorScheme.primaryContainer
+                } else {
+                    MaterialTheme.colorScheme.onPrimaryContainer
+                }
+
                 Spacer(modifier = Modifier.width(8.dp))
                 Surface(
                     shape = MaterialTheme.shapes.extraSmall,
@@ -101,13 +117,13 @@ fun SettingsItem(
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
-                            .background(MaterialTheme.colorScheme.primaryContainer)
+                            .background(badgeBgColor)
                             .padding(horizontal = 8.dp, vertical = 3.dp),
                     ) {
                         Icon(
                             imageVector = Icons.Default.Check,
                             contentDescription = stringResource(R.string.active),
-                            tint = MaterialTheme.colorScheme.onPrimaryContainer,
+                            tint = badgeContentColor,
                             modifier = Modifier.size(14.dp),
                         )
                         Spacer(modifier = Modifier.width(4.dp))
@@ -115,7 +131,7 @@ fun SettingsItem(
                             text = stringResource(R.string.active),
                             style = MaterialTheme.typography.labelSmall,
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
+                            color = badgeContentColor,
                         )
                     }
                 }
