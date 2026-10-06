@@ -7,6 +7,7 @@
     <string name="hdr_auto">自动</string>
     <string name="hdr_force_hdr">始终 HDR</string>
     <string name="hdr_force_sdr">始终 SDR（已禁用）</string>
+    <string name="hdr_not_supported">连接的显示器不支持</string>
     <string name="color_space">色彩空间</string>
     <string name="select_color_space">选择色彩空间</string>
     <string name="color_rgb">RGB 8位</string>

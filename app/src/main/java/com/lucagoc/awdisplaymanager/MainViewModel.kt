@@ -35,8 +35,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _currentHdrMode = MutableStateFlow("AUTO")
     val currentHdrMode: StateFlow<String> = _currentHdrMode
 
+    private val _isHdrSupported = MutableStateFlow(true)
+    val isHdrSupported: StateFlow<Boolean> = _isHdrSupported
+
     private val _currentPixelFormat = MutableStateFlow("RGB")
     val currentPixelFormat: StateFlow<String> = _currentPixelFormat
+
+    private val _supportedPixelFormats = MutableStateFlow<Set<String>>(setOf("RGB", "YUV444", "YUV422", "YUV420"))
+    val supportedPixelFormats: StateFlow<Set<String>> = _supportedPixelFormats
 
     private val _overscan = MutableStateFlow(listOf(100, 100, 100, 100))
     val overscan: StateFlow<List<Int>> = _overscan
@@ -135,13 +141,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
             val currentDataspace = DisplayManager.getCurrentDataspace()
             val currentFormat = DisplayManager.getCurrentPixelFormat()
+            val hdrSupport = DisplayManager.isHdrSupported(getApplication())
+            val formats = DisplayManager.getSupportedPixelFormats()
 
             withContext(Dispatchers.Main) {
                 _supportedResolutions.value = modes
                 _currentResolution.value = currentOutput
                 _formattedCurrentResolution.value = formatResolutionName(currentOutput)
                 _currentHdrMode.value = currentDataspace
+                _isHdrSupported.value = hdrSupport
                 _currentPixelFormat.value = currentFormat
+                _supportedPixelFormats.value = formats
                 _overscan.value = margins
                 _currentRenderResolution.value = renderRes
                 _recommendedDensity.value = recDpi

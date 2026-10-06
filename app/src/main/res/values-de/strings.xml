@@ -7,6 +7,7 @@
     <string name="hdr_auto">Automatisch</string>
     <string name="hdr_force_hdr">Immer HDR</string>
     <string name="hdr_force_sdr">Immer SDR (Deaktiviert)</string>
+    <string name="hdr_not_supported">Vom angeschlossenen Bildschirm nicht unterstützt</string>
     <string name="color_space">Farbraum</string>
     <string name="select_color_space">Farbraum auswählen</string>
     <string name="color_rgb">RGB 8-Bit</string>

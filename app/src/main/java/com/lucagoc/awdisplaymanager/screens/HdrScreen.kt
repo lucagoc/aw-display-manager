@@ -25,6 +25,7 @@ data class HdrOption(
     val titleRes: Int,
     val icon: ImageVector,
     val subtitleRes: Int? = null,
+    val enabled: Boolean = true,
 )
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -34,8 +35,9 @@ fun HdrRightPane(
     focusRequester: FocusRequester? = null
 ) {
     val currentHdrMode by viewModel.currentHdrMode.collectAsState()
+    val isHdrSupported by viewModel.isHdrSupported.collectAsState()
 
-    val options = remember {
+    val options = remember(isHdrSupported) {
         listOf(
             HdrOption(
                 id = "AUTO",
@@ -46,6 +48,8 @@ fun HdrRightPane(
                 id = "HDR",
                 titleRes = R.string.hdr_force_hdr,
                 icon = hdr_on,
+                subtitleRes = if (!isHdrSupported) R.string.hdr_not_supported else null,
+                enabled = isHdrSupported,
             ),
             HdrOption(
                 id = "SDR",
@@ -77,9 +81,11 @@ fun HdrRightPane(
 
                 SettingsItem(
                     title = stringResource(opt.titleRes),
+                    subtitle = opt.subtitleRes?.let { stringResource(it) },
                     icon = opt.icon,
                     onClick = { viewModel.setHdrMode(opt.id) },
                     isCurrent = isCurrent,
+                    enabled = opt.enabled,
                     modifier = itemModifier,
                 )
             }

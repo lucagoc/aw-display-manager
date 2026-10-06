@@ -7,6 +7,7 @@
     <string name="hdr_auto">Otomatis</string>
     <string name="hdr_force_hdr">Selalu HDR</string>
     <string name="hdr_force_sdr">Selalu SDR (Nonaktif)</string>
+    <string name="hdr_not_supported">Tidak didukung oleh layar yang terhubung</string>
     <string name="color_space">Ruang Warna</string>
     <string name="select_color_space">Pilih Ruang Warna</string>
     <string name="color_rgb">RGB 8-bit</string>

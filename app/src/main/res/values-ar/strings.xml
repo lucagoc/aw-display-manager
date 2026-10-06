@@ -7,6 +7,7 @@
     <string name="hdr_auto">تلقائي</string>
     <string name="hdr_force_hdr">HDR دائمًا</string>
     <string name="hdr_force_sdr">SDR دائمًا (معطل)</string>
+    <string name="hdr_not_supported">غير مدعوم من الشاشة المتصلة</string>
     <string name="color_space">المساحة اللونية</string>
     <string name="select_color_space">تحديد المساحة اللونية</string>
     <string name="color_rgb">RGB 8 بت</string>

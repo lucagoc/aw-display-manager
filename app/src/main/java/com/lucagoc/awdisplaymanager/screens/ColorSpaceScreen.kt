@@ -20,6 +20,8 @@ import com.lucagoc.awdisplaymanager.ui.icons.palette
 data class ColorSpaceOption(
     val id: String,
     val titleRes: Int,
+    val subtitleRes: Int? = null,
+    val enabled: Boolean = true,
 )
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -29,24 +31,33 @@ fun ColorSpaceRightPane(
     focusRequester: FocusRequester? = null
 ) {
     val currentPixelFormat by viewModel.currentPixelFormat.collectAsState()
+    val supportedPixelFormats by viewModel.supportedPixelFormats.collectAsState()
 
-    val options = remember {
+    val options = remember(supportedPixelFormats) {
         listOf(
             ColorSpaceOption(
                 id = "RGB",
                 titleRes = R.string.color_rgb,
+                enabled = supportedPixelFormats.contains("RGB"),
+                subtitleRes = if (!supportedPixelFormats.contains("RGB")) R.string.hdr_not_supported else null,
             ),
             ColorSpaceOption(
                 id = "YUV444",
                 titleRes = R.string.color_yuv444,
+                enabled = supportedPixelFormats.contains("YUV444"),
+                subtitleRes = if (!supportedPixelFormats.contains("YUV444")) R.string.hdr_not_supported else null,
             ),
             ColorSpaceOption(
                 id = "YUV422",
                 titleRes = R.string.color_yuv422,
+                enabled = supportedPixelFormats.contains("YUV422"),
+                subtitleRes = if (!supportedPixelFormats.contains("YUV422")) R.string.hdr_not_supported else null,
             ),
             ColorSpaceOption(
                 id = "YUV420",
                 titleRes = R.string.color_yuv420,
+                enabled = supportedPixelFormats.contains("YUV420"),
+                subtitleRes = if (!supportedPixelFormats.contains("YUV420")) R.string.hdr_not_supported else null,
             )
         )
     }
@@ -73,9 +84,11 @@ fun ColorSpaceRightPane(
 
                 SettingsItem(
                     title = stringResource(opt.titleRes),
+                    subtitle = opt.subtitleRes?.let { stringResource(it) },
                     icon = palette,
                     onClick = { viewModel.setPixelFormat(opt.id) },
                     isCurrent = isCurrent,
+                    enabled = opt.enabled,
                     modifier = itemModifier,
                 )
             }

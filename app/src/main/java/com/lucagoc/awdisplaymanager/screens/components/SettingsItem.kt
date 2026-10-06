@@ -29,19 +29,26 @@ fun SettingsItem(
     onClick: () -> Unit,
     isCurrent: Boolean = false,
     isSelected: Boolean = false,
+    enabled: Boolean = true,
 ) {
     val containerColor = if (isSelected) TvSurfaceContainerHigh else TvSurfaceContainer
 
     Surface(
         onClick = onClick,
+        enabled = enabled,
         shape = ClickableSurfaceDefaults.shape(shape = MaterialTheme.shapes.small),
         colors = ClickableSurfaceDefaults.colors(
             containerColor = containerColor,
             contentColor = MaterialTheme.colorScheme.onSurface,
             focusedContainerColor = MaterialTheme.colorScheme.primaryContainer,
             focusedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            disabledContainerColor = containerColor.copy(alpha = 0.5f),
+            disabledContentColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
         ),
-        scale = ClickableSurfaceDefaults.scale(focusedScale = 1.02f),
+        scale = ClickableSurfaceDefaults.scale(
+            focusedScale = if (enabled) 1.02f else 1f,
+            disabledScale = 1f
+        ),
         modifier = modifier.fillMaxWidth(),
     ) {
         Row(
@@ -79,7 +86,7 @@ fun SettingsItem(
                     Text(
                         text = sub,
                         style = MaterialTheme.typography.bodySmall,
-                        color = LocalContentColor.current.copy(alpha = 0.8f),
+                        color = if (enabled) LocalContentColor.current.copy(alpha = 0.8f) else LocalContentColor.current,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                     )

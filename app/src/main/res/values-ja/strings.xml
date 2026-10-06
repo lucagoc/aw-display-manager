@@ -7,6 +7,7 @@
     <string name="hdr_auto">自動</string>
     <string name="hdr_force_hdr">常にHDR</string>
     <string name="hdr_force_sdr">常にSDR (無効)</string>
+    <string name="hdr_not_supported">接続されたディスプレイではサポートされていません</string>
     <string name="color_space">色空間</string>
     <string name="select_color_space">色空間を選択</string>
     <string name="color_rgb">RGB 8ビット</string>

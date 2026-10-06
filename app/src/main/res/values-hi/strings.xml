@@ -7,6 +7,7 @@
     <string name="hdr_auto">स्वचालित</string>
     <string name="hdr_force_hdr">हमेशा HDR</string>
     <string name="hdr_force_sdr">हमेशा SDR (निष्क्रिय)</string>
+    <string name="hdr_not_supported">कनेक्ट किए गए डिस्प्ले द्वारा समर्थित नहीं है</string>
     <string name="color_space">कलर स्पेस</string>
     <string name="select_color_space">कलर स्पेस चुनें</string>
     <string name="color_rgb">RGB 8-बिट</string>

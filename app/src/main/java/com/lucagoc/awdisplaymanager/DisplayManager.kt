@@ -1,5 +1,9 @@
 package com.lucagoc.awdisplaymanager
 
+import android.content.Context
+import android.hardware.display.DisplayManager
+import android.view.Display
+
 data class DisplayMode(val id: Int, val name: String) {
     val displayName: String
         get() = formatResolutionName(name)
@@ -228,5 +232,69 @@ object DisplayManager {
         }
         val (stdout, _) = RootUtils.execute("$VENDOR_DISPCONFIG -f $arg")
         return stdout.contains("success", ignoreCase = true)
+    }
+
+    fun getSupportedPixelFormats(): Set<String> {
+        val (stdout, _) = RootUtils.execute("$VENDOR_DISPCONFIG -d")
+        val supported = mutableSetOf("RGB")
+
+        if (stdout.contains("RGB Only  : 1") || stdout.contains("RGB Only: 1")) {
+            return supported
+        }
+
+        val uppercase = stdout.uppercase()
+        if (uppercase.contains("YUV444") || uppercase.contains("YCBCR 4:4:4") || uppercase.contains("YCBCR444")) {
+            supported.add("YUV444")
+        }
+        if (uppercase.contains("YUV422") || uppercase.contains("YCBCR 4:2:2") || uppercase.contains("YCBCR422")) {
+            supported.add("YUV422")
+        }
+        if (uppercase.contains("YUV420") || uppercase.contains("YCBCR 4:2:0") || uppercase.contains("YCBCR420")) {
+            supported.add("YUV420")
+        }
+
+        if (supported.size == 1 && !stdout.contains("RGB Only")) {
+            supported.addAll(listOf("YUV444", "YUV422", "YUV420"))
+        }
+
+        return supported
+    }
+
+    @Suppress("DEPRECATION")
+    fun isHdrSupported(context: Context): Boolean {
+        val (stdout, _) = RootUtils.execute("$VENDOR_DISPCONFIG -d")
+        if (stdout.contains("HDR static metadata", ignoreCase = true)) {
+            val hdrSection = stdout.substringAfter("HDR static metadata:")
+                .substringBefore("HDMI vendor specific")
+                .substringBefore("Device")
+
+            val hasNonZeroDescriptor = hdrSection.lines().any { line ->
+                val trimmed = line.trim().lowercase()
+                when {
+                    trimmed.startsWith("metadata descriptor") -> !trimmed.endsWith("00") && !trimmed.endsWith(": 0")
+                    trimmed.contains("st 2084") || trimmed.contains("hlg") || trimmed.contains("hdr10") -> true
+                    trimmed.startsWith("max luminance") -> !trimmed.endsWith("00") && !trimmed.endsWith(": 0")
+                    else -> false
+                }
+            }
+            if (hasNonZeroDescriptor) {
+                return true
+            }
+            if (stdout.contains("metadata descriptor : 00") || stdout.contains("metadata descriptor : 0")) {
+                return false
+            }
+        }
+
+        try {
+            val displayManager = context.getSystemService(Context.DISPLAY_SERVICE) as? DisplayManager
+            val display = displayManager?.getDisplay(Display.DEFAULT_DISPLAY)
+            val hdrCapabilities = display?.hdrCapabilities
+            val supportedTypes = hdrCapabilities?.supportedHdrTypes ?: intArrayOf()
+            return supportedTypes.isNotEmpty()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        return false
     }
 }
