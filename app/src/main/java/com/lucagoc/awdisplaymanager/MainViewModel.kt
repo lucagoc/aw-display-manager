@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.core.content.edit
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val prefs = application.getSharedPreferences("display_settings", Context.MODE_PRIVATE)
@@ -41,7 +42,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _currentPixelFormat = MutableStateFlow("RGB")
     val currentPixelFormat: StateFlow<String> = _currentPixelFormat
 
-    private val _supportedPixelFormats = MutableStateFlow<Set<String>>(setOf("RGB", "YUV444", "YUV422", "YUV420"))
+    private val _supportedPixelFormats = MutableStateFlow(setOf("RGB", "YUV444", "YUV422", "YUV420"))
     val supportedPixelFormats: StateFlow<Set<String>> = _supportedPixelFormats
 
     private val _overscan = MutableStateFlow(listOf(100, 100, 100, 100))
@@ -111,7 +112,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
             } else {
                 modes.find { it.name == currentOutput }?.let {
-                    prefs.edit().putInt("saved_output_mode_id", it.id).putString("saved_output_mode_name", it.name).apply()
+                    prefs.edit {
+                        putInt(
+                            "saved_output_mode_id",
+                            it.id
+                        ).putString("saved_output_mode_name", it.name)
+                    }
                     DisplayManager.saveOutputResolutionPersist(it.id)
                 }
             }
@@ -241,10 +247,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val current = DisplayManager.getCurrentResolution()
             val mode = _supportedResolutions.value.find { it.name == current }
             if (mode != null) {
-                prefs.edit()
-                    .putInt("saved_output_mode_id", mode.id)
-                    .putString("saved_output_mode_name", mode.name)
-                    .apply()
+                prefs.edit {
+                    putInt("saved_output_mode_id", mode.id)
+                        .putString("saved_output_mode_name", mode.name)
+                }
                 DisplayManager.saveOutputResolutionPersist(mode.id)
             }
             withContext(Dispatchers.Main) {
@@ -291,7 +297,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setRenderResolutionAuto() {
         viewModelScope.launch(Dispatchers.IO) {
-            prefs.edit().putBoolean(PREF_AUTO_RENDER, true).apply()
+            prefs.edit { putBoolean(PREF_AUTO_RENDER, true) }
             val autoRender = DisplayManager.computeAutoRenderResolution(_currentResolution.value)
             DisplayManager.setRenderResolution(autoRender)
             val recDpi = DisplayManager.computeRecommendedDpi(autoRender)
@@ -313,10 +319,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setRenderResolutionManual(size: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            prefs.edit()
-                .putBoolean(PREF_AUTO_RENDER, false)
-                .putString(PREF_MANUAL_RENDER, size)
-                .apply()
+            prefs.edit {
+                putBoolean(PREF_AUTO_RENDER, false)
+                    .putString(PREF_MANUAL_RENDER, size)
+            }
             DisplayManager.setRenderResolution(size)
             val recDpi = DisplayManager.computeRecommendedDpi(size)
 
@@ -337,7 +343,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setDensityAuto() {
         viewModelScope.launch(Dispatchers.IO) {
-            prefs.edit().putBoolean(PREF_AUTO_DENSITY, true).apply()
+            prefs.edit { putBoolean(PREF_AUTO_DENSITY, true) }
             val recDpi = _recommendedDensity.value
             DisplayManager.setDensity(recDpi)
 
@@ -350,10 +356,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setDensityManual(density: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            prefs.edit()
-                .putBoolean(PREF_AUTO_DENSITY, false)
-                .putInt(PREF_MANUAL_DENSITY, density)
-                .apply()
+            prefs.edit {
+                putBoolean(PREF_AUTO_DENSITY, false)
+                    .putInt(PREF_MANUAL_DENSITY, density)
+            }
             DisplayManager.setDensity(density)
 
             withContext(Dispatchers.Main) {
@@ -391,7 +397,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             val current = _overscan.value
             val margin = current[0]
-            prefs.edit().putInt("saved_overscan_margin", margin).apply()
+            prefs.edit { putInt("saved_overscan_margin", margin) }
             DisplayManager.setOverscan(margin)
         }
     }

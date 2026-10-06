@@ -40,7 +40,7 @@ object DisplayManager {
     private const val VENDOR_DISPCONFIG = "LD_LIBRARY_PATH=/vendor/lib /vendor/bin/dispconfig"
     private var internalMarginBinaryPath: String? = null
 
-    fun init(context: android.content.Context) {
+    fun init(context: Context) {
         try {
             val file = java.io.File(context.filesDir, "dispconfig.margin")
             if (!file.exists() || file.length() == 0L) {
